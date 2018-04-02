@@ -12,12 +12,17 @@ import { classnames, config } from '../utils'
 import '../components/layout/common.less'
 import enUS from 'antd/lib/locale-provider/en_US';
 import RightSider from '../components/layout/rightSider';
-import { Layout } from 'antd';
+import { Layout,Form,Select,Row,Button,Modal } from 'antd';
+
 import { BackTop } from 'antd';
-// import { apiFunc, BASE_URL, CLIENT_ID } from '../../CommonMethods/api'
+import {apiFunc, BASE_URL,
+  CLIENT_ID} from '../CommonMethods/api';
+  import CustomModal from '../components/customer/modal';
+
 
 const { Sider, Content } = Layout;
-
+const FormItem = Form.Item
+var dropDownData=[];
 
 function App({ children, location, dispatch, app }) {
   const {
@@ -36,16 +41,28 @@ function App({ children, location, dispatch, app }) {
     SignUp,
     modules,
     menuTheme,
-    headerTheme
+    headerTheme,
+    modalVisible,
+    modalType,
+    id
   } = app
   console.log(app,"1");
   const loginProps ={
+    login,
     loading,
     loginButtonLoading,
      onOk(data) {
          dispatch({type:'app/login',payload: data })
     }
    
+  }
+  const formItemLayout = {
+    labelCol: {
+      span: 6
+    },
+    wrapperCol: {
+      span: 14
+    }
   }
  
   const headerProps = {
@@ -127,6 +144,30 @@ function App({ children, location, dispatch, app }) {
     },
   }
 
+  const userModalProps = {
+    id,
+    item: modalType === 'create'
+      ? {}
+      : currentItem,
+    type: modalType,
+    visible: modalVisible,
+    onOk(data) {
+      dispatch({type: `app/${modalType}`, payload: data})
+    },
+    onCancel() {
+      dispatch({type: 'app/hideModal'})
+    }
+  }
+
+  async function customer(){
+    var data2= await apiFunc.getCustomerList();
+    console.log(data2.body.data,"finjdfvndj");
+    dropDownData=data2.body.data;
+    console.log(dropDownData,"dropdown");
+   }
+
+   customer();
+ 
  
 
   if (SignUp) {
@@ -159,6 +200,15 @@ function App({ children, location, dispatch, app }) {
       )
     }
   }
+  var onAdd=()=>{
+    
+     dispatch({
+       type: 'app/showModal',
+       payload: {
+         modalType:'create'
+       }
+     })
+   }
 
   if (login || (config.needLogin()==false)) {
 
@@ -169,6 +219,29 @@ function App({ children, location, dispatch, app }) {
         className={classnames(styles.layout, { [styles.fold]: isNavbar ? false : siderFold  }, {  [styles.withnavbar]: isNavbar  })}>
         {!isNavbar  ? <aside
             className={classnames(styles.sider , (menuTheme=="dark") ? styles.dark : menuTheme=="light" ?  styles.light : "menu_"+menuTheme )} >
+      
+            <div>
+                    <Form >
+                    <FormItem label='Customer List' hasFeedback {...formItemLayout}>
+                    {
+                    (<Select  placeholder="Select customer" >
+                      {
+                        dropDownData.map((item,index)=>{
+                          console.log(item._id,"daahola");
+                        return <Select.Option value={item._id} key = {index}>{item.customerName}</Select.Option>
+                      })}
+                      </Select>
+                    )}
+                </FormItem>
+                <Row>
+                   <Button type='primary' size='large' onClick={onAdd}>
+            Add Customer
+          </Button>
+        </Row>
+                  </Form >
+             </div> 
+      
+      
             <CustomSider {...siderProps} />
 
           </aside>
@@ -190,7 +263,7 @@ function App({ children, location, dispatch, app }) {
           </div>
           <RightSider {...headerProps}/>
         </div>
-        
+        <CustomModal {...userModalProps}/>
       </div>
     )
   }
@@ -202,7 +275,7 @@ function App({ children, location, dispatch, app }) {
         <div className={styles.spin}>
           <Login {...loginProps} />
         </div>
-
+        
       </div>
     )
   }

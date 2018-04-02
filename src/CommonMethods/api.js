@@ -9,6 +9,11 @@ apiFunc.getAssetTypeList = () => {
        .get(BASE_URL+'/allAssetType')
        .query({clientId: 131})
 }
+apiFunc.getCustomerList = () => {
+  return superagent
+    .get(BASE_URL+'/allCustomer')
+    .query({_id:"5abb2ea3a21d6c147cea776d"})
+}
 apiFunc.getRegionList = () =>{
     console.log("aa gaya mai 123")
        return superagent
