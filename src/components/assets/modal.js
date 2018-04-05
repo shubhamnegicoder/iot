@@ -26,6 +26,8 @@ const displayNone = {
   display: "none"
 }
 const modal = ({
+  id,
+  customerId,
   visible,
   type,
   item = {},
@@ -57,6 +59,8 @@ const modal = ({
       ? 'Create New Asset'
       : 'Edit Asset'}`,
     visible,
+    id,
+    customerId,
     onOk: handleOk,
     onCancel,
     wrapClassName: 'vertical-center-modal'
@@ -66,14 +70,14 @@ const modal = ({
     <LocaleProvider locale={enUS}>
       <Modal {...modalOpts}>
         <Form layout>
-          <FormItem style={displayNone} label='_id' hasFeedback {...formItemLayout}>
+          <FormItem  label='_id' hasFeedback {...formItemLayout}>
             {getFieldDecorator('_id', {
-              initialValue: item._id,
+              initialValue: id,
             })(<Input/>)}
           </FormItem>
-          <FormItem style={displayNone} label='clientId' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('clientId', {
-              initialValue: CLIENT_ID,
+          <FormItem  label='customerId' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('customerId', {
+              initialValue: customerId,
             })(<Input/>)}
           </FormItem>
           <FormItem label='Serial No.' hasFeedback {...formItemLayout}>
@@ -98,8 +102,8 @@ const modal = ({
                ]
              })(<Select  placeholder="Select Asset Type" >
                  {
-                  dropDownData.map((item,index)=>{
-                  return <Select.Option value={item.assetTypeId} key = {index} >{item.assetTypeName}</Select.Option>
+              dropDownData  && dropDownData.map((item,index)=>{
+                  return <Select.Option value={item._id} key = {index} >{item.assetTypeName}</Select.Option>
                 })}
                 </Select>
              )}
@@ -115,7 +119,7 @@ const modal = ({
               ]
             })(<Input placeholder="Asset Name" />)}
           </FormItem>
-          <FormItem label='Branch Name' {...formItemLayout}>
+          {/* <FormItem label='Branch Name' {...formItemLayout}>
              {getFieldDecorator('branchId', {
                initialValue: item.branchId,
                rules: [
@@ -131,7 +135,7 @@ const modal = ({
                   })}
                 </Select>
              )}
-          </FormItem>
+          </FormItem> */}
           <FormItem label="Status" {...formItemLayout}>
              {getFieldDecorator('status', {
                initialValue: item.status,

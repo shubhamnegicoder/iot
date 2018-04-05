@@ -11,6 +11,8 @@ function Device({location, dispatch, device}) {
   const {
     loading,
     list,
+    id,
+    customerId,
     pagination,
     currentItem,
     modalVisible,
@@ -19,12 +21,15 @@ function Device({location, dispatch, device}) {
   } = device
   async function getallasset() {
     var a= await apiFunc.getAsset();
+    console.log(a,"asset data in device")
     device.dropdown=a.body.data;
   }
-getallasset();
+  getallasset()
   const {field, keyword} = location.query
 
   const userModalProps = {
+    id,
+    customerId,
     item: modalType === 'create'
       ? {}
       : currentItem,
@@ -32,15 +37,16 @@ getallasset();
     dropdown:dropdown,
     visible: modalVisible,
     onOk(data) {
-      dispatch({type: `device/${modalType}`, payload: data})
+      dispatch({type:`device/${modalType}`, payload: data})
     },
     onCancel() {
       dispatch({type: 'device/hideModal'})
     }
   }
-
+console.log(userListProps,"list")
   const userListProps = {
-    dataSource: list,
+    
+    dataSource:list,
     loading,
     pagination: pagination,
     onPageChange(page) {
@@ -86,7 +92,9 @@ getallasset();
       dispatch({
         type: 'device/showModal',
         payload: {
-          modalType: 'create'
+          modalType: 'create',
+          id:localStorage.getItem("_id"),
+          customerId:localStorage.getItem("customerId")
         }
       })
     }

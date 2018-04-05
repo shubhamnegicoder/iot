@@ -7,8 +7,8 @@ import find from 'lodash/find';
 const topMenus = menu.map(item => item.key)
 console.log(topMenus, "top");
 const getMenus = function (menuArray, siderFold, modules, parentPath) {
-  console.log(menuArray, "mod");
-  console.log(modules, "module");
+  // console.log(menuArray, "mod");
+  // console.log(modules, "module");
   parentPath = parentPath || '/'
   return menuArray.map(item => {
 
@@ -17,7 +17,7 @@ const getMenus = function (menuArray, siderFold, modules, parentPath) {
       if (item.key == modules[i].name.toLowerCase()) {
 
         if (item.child) {
-          console.log("suc",item.icon);
+          // console.log("suc",item.icon);
           return (
             <Menu.SubMenu
               key={item.key}
@@ -34,7 +34,7 @@ const getMenus = function (menuArray, siderFold, modules, parentPath) {
             </Menu.SubMenu>
           )
         } else {
-          console.log("else");
+          // console.log("else");
           return (
             <Menu.Item key={item.key}>
 
@@ -52,7 +52,7 @@ const getMenus = function (menuArray, siderFold, modules, parentPath) {
       }
       
       else {
-        console.log("false");
+        // console.log("false");
         return (
           <Menu.Item key={item.key}>
             <Link to={parentPath + item.key}>
@@ -87,7 +87,7 @@ function Menus({
   // console.log(getMenus(menu, siderFold, modules), "func");
   // console.log(modules,"func");
   var menuItems = getMenus(menu, siderFold, modules)
-  console.log(menuItems, "menues");
+  // console.log(menuItems, "menues");
   const onOpenChange = (openKeys) => {
     const latestOpenKey = find(openKeys, key => !(navOpenKeys.indexOf(key) > -1))
     const latestCloseKey = find(navOpenKeys, key => !(openKeys.indexOf(key) > -1))

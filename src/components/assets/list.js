@@ -129,41 +129,27 @@ class list extends React.Component {
       title: 'Serial No.',
       dataIndex: 'serialNo',
       key: 'serialNo',
-      width: '10%'
+      width: '20%'
     }, {
       title: 'Asset Type',
       dataIndex: 'assetTypeName',
-      width: '10%',
+      width: '20%',
       key: 'assetTypeName'
     }, {
       title: 'Asset Name',
       dataIndex: 'assetName',
-      width: '10%',
+      width: '20%',
       key: 'assetName'
-    }, {
-      title: 'Region Name',
-      dataIndex: 'regionName',
-      width: '10%',
-      key: 'regionName'
-    },  {
-      title: 'Zone Name',
-      dataIndex: 'zoneName',
-      width: '10%',
-      key: 'zoneName'
-    }, {
-      title: 'Branch Name',
-      dataIndex: 'branchName',
-      width: '10%',
-      key: 'branchName'
+
     }, {
       title: 'Status',
       dataIndex: 'status',
-      width: '10%',
+      width: '20%',
       key: 'status'
     }, {
       title: 'Operation',
       key: 'operation',
-      width: '10%',
+      width: '20%',
       render: (text, record) => {
          return (<Dropdown overlay={<Menu onClick={this.handleMenuClick.bind(null, record)}>
            <Menu.Item key='1'>Edit</Menu.Item>

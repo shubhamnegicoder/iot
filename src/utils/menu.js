@@ -8,15 +8,20 @@ module.exports = [
     {
         key: 'asset',
         name: 'Assets',
-        icon: 'team',
+        icon: 'laptop',
         clickable: false,
+        child: [
+            {
+                key: 'assets',
+                name: 'Assets'
+            },
+            {
+                key: 'assets_type',
+                name: 'Assets Type'
+            }
+           
+        ]
     },
-    {
-        key: 'assets_type',
-        name: 'Assets Type',
-        icon: 'pushpin-o',
-        clickable: true
-    }, 
      {
         key: 'device',
         name: 'Devices',

@@ -21,20 +21,31 @@ const cardStyle = {
   }
 }
 
-function Dashboard({dashboard, dispatch}) {
+function Dashboard({dashboard, dispatch,login}) {
   const {
     dashboardCard,
     recentSales_2,
     recentSales_3,
-    numbers
+    numbers,
+    id,
+    ticket,
+    customerId,
   } = dashboard
+
+  
+ if(dashboard.ticket==true ) 
+ { dispatch({type:"dashboard/allUser",payload:{ticket:false}})
+}
+
   const numberCards = dashboardCard.map((item, key) =>
 
     <Col key={key} lg={8} md={12}>
       <NumberCard {...item} />
     </Col>)
+    // dispatch({type:"dashboard/allUser"}))
 
   return (
+    
     <div className="dashboard-2">
       <Row gutter={24}>
         {numberCards}

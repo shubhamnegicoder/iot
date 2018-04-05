@@ -57,6 +57,8 @@ export default {
             avatar: './assets/people/3.jpg'
         },
         dashboardCard:[],
+        ticket:true,
+        customerId:localStorage.getItem("customerId"),
         numbers: [],
         numbers_2: [],
         numbers_3: [],
@@ -104,15 +106,16 @@ export default {
         *allUser({ payload }, { call, put }) {
             try {
                 const user = yield call(allUser, parse(payload))
+               
                 const dashboardCard = [{
                     icon: 'team',
                     color: color.green,
-                    title: 'All User',
+                    title: 'All Customer',
                     number: 0
                 }, {
-                    icon: 'book',
+                    icon: 'team',
                     color: color.plump_purple,
-                    title: 'All Asset',
+                    title: 'All User',
                     number: 0
                 }, {
                     icon: 'inbox',
@@ -121,14 +124,16 @@ export default {
                     number: 0
                 }]
 
-                dashboardCard[0].number = user.data[0].allUser
-                dashboardCard[1].number = user.data[0].allAsset
-                dashboardCard[2].number = user.data[0].allDevice
+                dashboardCard[0].number =  user.data && user.data[0].allCustomer
+                dashboardCard[1].number = user.data && user.data[0].allUser
+                dashboardCard[2].number =  user.data && user.data[0].allDevice
 
                 if (user) {
                     yield put({
                         type: "userSuccess",
-                        payload: {dashboardCard}
+                        payload: {dashboardCard,
+                            ticket:payload.ticket
+                        }
                     })
                 }
 

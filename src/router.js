@@ -11,7 +11,7 @@ export default function ({history,app}) {
             getIndexRoute(nextState, cb) {
                 require.ensure([], require => {
                     cb(null, {component: require('./routes/dashboard_1')})
-                    // cb(null, {component: require('./routes/login')})
+                    cb(null, {component: require('./routes/login')})
                 })
             },
             childRoutes: [
@@ -44,7 +44,7 @@ export default function ({history,app}) {
                 },
                 {
                     path: 'asset/assets_type',
-                    name: 'asset/assets_type',
+                    name: 'asset/asset_type',
                     getComponent(nextState, cb) {
                         require.ensure([], require => {
                             cb(null, require('./routes/asset/assets_type'))

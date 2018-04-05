@@ -8,14 +8,16 @@ export default {
   namespace : 'app',
   state : {
     ishidden:false,
+    dashhide:false,
+    dropDownData:JSON.parse(localStorage.getItem("dropDownData")||"[]"),
+    selectValue:"",
     login:false,
     loading:false,
     lock:false,
     SignUp:false,
-    modules:JSON.parse(localStorage.getItem("modules")||"[]"),
+    modules:JSON.parse(localStorage.getItem("modules") ||'[]'),
     modalVisible: false,
     modalType: 'create',
-    id:localStorage.getItem("_id"),
     user: {
       name:localStorage.getItem("username")
     },
@@ -26,7 +28,7 @@ export default {
     menuTheme: localStorage.getItem('berrAdminMenuTheme')=="" ?  'dark': localStorage.getItem('berrAdminMenuTheme'),
     headerTheme: localStorage.getItem('berrAdminHeaderTheme')=="" ?  'dark': localStorage.getItem('berrAdminHeaderTheme'),
     isNavbar: document.body.clientWidth < 769,
-    navOpenKeys:JSON.parse(localStorage.getItem('navOpenKeys') || '[]'), //The sidebar menu opens the keys
+    navOpenKeys:JSON.parse(localStorage.getItem('navOpenKeys') || '[]') //The sidebar menu opens the keys
   },
 
 
@@ -43,17 +45,14 @@ export default {
     *login({ payload }, {call, put}) {
       yield put({type: 'showLoginButtonLoading'})
       const data = yield call(login, parse(payload))
-      console.log(data,"after login");
       var body=[];
-      
       if(data.data){
          body=data.data.module;
          localStorage.setItem("modules",JSON.stringify(body));
         }
-      console.log(body,"lllkkdjdh");
-      
+
       if (data.success) { 
-        
+
         yield put({
           type: 'loginSuccess',
           payload: {
@@ -139,7 +138,7 @@ export default {
         yield put({ type: 'showLoading' })
         const data = yield call(query, parse(payload))
         if (data) {
-          console.log("data in add",data)
+          // console.log("data in add",data)
           yield put({
             type: 'querySuccess',
             payload: {
@@ -158,7 +157,7 @@ export default {
     loginSuccess(state, action) {
      localStorage.setItem("username",action.payload.user.name);
      localStorage.setItem("_id",action.payload.id);
-     console.log(state,"success state");
+    //  console.log(state,"success state");
       return {
         ...state,
         ...action.payload,
@@ -181,15 +180,27 @@ export default {
     logoutSuccess(state) {
       return {
         ...state,
-        login: false
+        ishidden: false,
+        login: false,
       }
     },
     loginFail(state) {
-      console.log(state,"fail");
+      // console.log(state,"fail");
       return {
         ...state,
         login: false,
         loginButtonLoading: false
+      }
+    },
+    showState(state,action){
+      localStorage.setItem("customerId",action.payload);
+      return{
+        ...state,
+        ishidden:true,
+        dashhide:true,
+        // customerId:localStorage.getItem("customerId")
+        selectValue:action.payload
+        
       }
     },
     showLoginButtonLoading(state) {

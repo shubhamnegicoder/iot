@@ -160,7 +160,7 @@ class list extends React.Component {
    //console.log(dataSource)
     return <div>
       <LocaleProvider locale={enUS}>
-      <Table className={styles.table} bordered  columns={columns} dataSource={dataSource} loading={loading} onChange={::this.pageChange} pagination={pagination} simple rowKey={record => record.id} getBodyWrapper={this.getBodyWrapper}   scroll={{ x: this.state.width }} /></LocaleProvider>
+      <Table className={styles.table} bordered  columns={columns} dataSource={dataSource} loading={loading} onChange={this.pageChange} pagination={pagination} simple rowKey={record => record.id} getBodyWrapper={this.getBodyWrapper}   scroll={{ x: this.state.width }} /></LocaleProvider>
     </div>
   }
 }
