@@ -11,7 +11,7 @@ module.exports = {
       return true;
     }
     else
-    { console.log("return false");
+    { 
       return false;
     }
   }

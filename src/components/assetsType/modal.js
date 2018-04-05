@@ -25,11 +25,13 @@ const displayNone = {
   display: "none"
 }
 const modal = ({
+  id,
   visible,
   type,
   item = {},
   onOk,
   onCancel,
+  customerId,
   form: {
     getFieldDecorator,
     validateFields,
@@ -56,6 +58,7 @@ const modal = ({
     visible,
     onOk: handleOk,
     onCancel,
+    customerId,
     wrapClassName: 'vertical-center-modal'
   }
 
@@ -63,14 +66,14 @@ const modal = ({
     <LocaleProvider locale={enUS}>
       <Modal {...modalOpts}>
         <Form horizontal>
-          <FormItem style={displayNone} label='_id' hasFeedback {...formItemLayout}>
+          <FormItem label='_id' hasFeedback {...formItemLayout}>
             {getFieldDecorator('_id', {
-              initialValue: item._id,
+              initialValue: id,
             })(<Input/>)}
           </FormItem>
-          <FormItem style={displayNone} label='clientId' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('clientId', {
-              initialValue: CLIENT_ID,
+          <FormItem  label='customerId' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('customerId', {
+              initialValue: customerId,
             })(<Input/>)}
           </FormItem>
           <FormItem label='Asset Type Name' hasFeedback {...formItemLayout}>

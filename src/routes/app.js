@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import Login from './login'
 import Header from '../components/layout/header'
+import Dashboard from '../routes/dashboard_1'
 import LockPage from '../routes/pages/lockscreen'
 import Bread from '../components/layout/bread'
 import Footer from '../components/layout/footer'
@@ -28,6 +29,10 @@ function App({ children, location, dispatch, app }) {
   const {
     login,
     loading,
+    dropDownData,
+    ishidden,
+    dashhide,
+    selectValue,
     loginButtonLoading,
     user,
     siderFold,
@@ -46,8 +51,9 @@ function App({ children, location, dispatch, app }) {
     modalType,
     id
   } = app
-  console.log(app,"1");
+  // console.log(app,"1");
   const loginProps ={
+    dropDownData,
     login,
     loading,
     loginButtonLoading,
@@ -64,7 +70,7 @@ function App({ children, location, dispatch, app }) {
       span: 14
     }
   }
- 
+//  console.log(ishidden,"stategggggggg")
   const headerProps = {
     user,
     siderFold,siderFoldRight,
@@ -79,7 +85,9 @@ function App({ children, location, dispatch, app }) {
       alert("logout called");
       dispatch({ type: 'app/logout' })
       localStorage.removeItem("username")
-      // window.location.href ="/"
+      localStorage.removeItem("_id")
+      localStorage.removeItem("customerId")
+      window.location.href ="/"
     },
     switchSider() {
       dispatch({ type: 'app/switchSider' })
@@ -159,16 +167,27 @@ function App({ children, location, dispatch, app }) {
     }
   }
 
+
+  
+  var handleok=(e)=>{
+     dispatch({
+       type: 'app/showState',
+       payload:e
+     })
+     dispatch({type:"dashboard/allUser",payload:{ticket:false}})
+      // window.location.pathname='./dashboard_1'
+   }
+ 
+  //  console.log(selectValue,"selectstate");
   async function customer(){
     var data2= await apiFunc.getCustomerList();
-    console.log(data2.body.data,"finjdfvndj");
-    dropDownData=data2.body.data;
-    console.log(dropDownData,"dropdown");
+    // console.log(data2.body.data,"finjdfvndj");
+    app.dropDownData=data2.body.data;
+    localStorage.setItem("dropDownData",JSON.stringify(app.dropDownData));
    }
 
    customer();
- 
- 
+
 
   if (SignUp) {
 
@@ -188,7 +207,7 @@ function App({ children, location, dispatch, app }) {
 
   } else if (config.needLogin()) {
     if (login == false) {
-      console.log(login,"logan")
+      // console.log(login,"logan")
       return (
         <div>
  
@@ -212,8 +231,8 @@ function App({ children, location, dispatch, app }) {
 
   if (login || (config.needLogin()==false)) {
 
-      console.log(app,"states app");
-      console.log(config.needLogin(),"config");
+      // console.log(app,"states app");
+      // console.log(config.needLogin(),"config");
     return (
       <div
         className={classnames(styles.layout, { [styles.fold]: isNavbar ? false : siderFold  }, {  [styles.withnavbar]: isNavbar  })}>
@@ -221,17 +240,19 @@ function App({ children, location, dispatch, app }) {
             className={classnames(styles.sider , (menuTheme=="dark") ? styles.dark : menuTheme=="light" ?  styles.light : "menu_"+menuTheme )} >
       
             <div>
+            
                     <Form >
                     <FormItem label='Customer List' hasFeedback {...formItemLayout}>
                     {
-                    (<Select  placeholder="Select customer" >
-                      {
-                        dropDownData.map((item,index)=>{
-                          console.log(item._id,"daahola");
-                        return <Select.Option value={item._id} key = {index}>{item.customerName}</Select.Option>
+                    (<Select  placeholder="Select customer" onChange={(e)=>{handleok(e)}} >
+                      {  
+                app.dropDownData && app.dropDownData.length && app.dropDownData.map((item,index)=>{
+
+                        return <Select.Option value={item._id} key = {index} >{item.customerName} </Select.Option>
                       })}
                       </Select>
                     )}
+
                 </FormItem>
                 <Row>
                    <Button type='primary' size='large' onClick={onAdd}>
@@ -239,10 +260,9 @@ function App({ children, location, dispatch, app }) {
           </Button>
         </Row>
                   </Form >
-             </div> 
-      
-      
-            <CustomSider {...siderProps} />
+          </div>
+                  {ishidden?<CustomSider {...siderProps} />:<div></div>};
+                {/* <Dashboard {...loginProps}/> */}
 
           </aside>
           : ''}
@@ -279,6 +299,8 @@ function App({ children, location, dispatch, app }) {
       </div>
     )
   }
+
+  
 }
 
 App.propTypes = {

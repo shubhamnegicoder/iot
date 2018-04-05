@@ -11,6 +11,8 @@ import { locationShape } from 'react-router';
 function Assets({location, dispatch, assets}) {
   const {
     loading,
+    id,
+   customerId,
     dropDownData,
     branchDropDown,
     list,
@@ -23,17 +25,20 @@ function Assets({location, dispatch, assets}) {
 
   async function  assetType(){
     var a = await apiFunc.getAssetTypeList()
+    // console.log(a,"assettypedataaaaaaaaaaaaaaaaaaaaaaa")
     assets.dropDownData = a.body.data;
   }
   assetType();
 
-  async function  getBranch(){
-    var a = await apiFunc.getBranchList()
-    assets.branchDropDown = a.body.data;
-  }
-  getBranch();
+  // async function  getBranch(){
+  //   var a = await apiFunc.getBranchList()
+  //   assets.branchDropDown = a.body.data;
+  // }
+  // getBranch();
 
   const userModalProps = {
+    id,
+    customerId,
     item: modalType === 'create'
       ? {}
       : currentItem,
@@ -96,9 +101,12 @@ function Assets({location, dispatch, assets}) {
       dispatch({
         type: 'assets/showModal',
         payload: {
-          modalType: 'create'
+          modalType: 'create',
+          id:localStorage.getItem("_id"),
+          customerId:localStorage.getItem("customerId")
         }
       })
+
     }
   }
 

@@ -1,8 +1,10 @@
 import { request } from '../utils'
 import {BASE_URL, CLIENT_ID} from '../CommonMethods/api'
-
 export async function query (params) {
-  return request(BASE_URL+'/allAssetType?clientId='+CLIENT_ID, {
+
+ const  id=localStorage.getItem("_id");
+  console.log(id,"underscoreid");
+  return request(BASE_URL+'/allAssetType?_id='+id, {
     method: 'get',
     data: params
   })

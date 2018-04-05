@@ -57,7 +57,7 @@ export default class IotMap extends Component {
     const {
       lat,
       lng
-    } = this.state.allDeviceData[0] || mapCenter
+    } = this.state.allDeviceData && this.state.allDeviceData[0] || mapCenter
     return (
       <Map google={window.google}
           zoom={15}
@@ -65,7 +65,7 @@ export default class IotMap extends Component {
             lat: lat,
             lng: lng }}
           onClick={this.onMapClicked}>
-          {this.state.allDeviceData.map((device, index) => {
+          {this.state.allDeviceData && this.state.allDeviceData.map((device, index) => {
             return <Marker key={index} onClick={this.onMarkerClick}
               deviceType={device.deviceType}
               status={device.status}
