@@ -9,7 +9,7 @@ import Bread from '../components/layout/bread'
 import Footer from '../components/layout/footer'
 import CustomSider from '../components/layout/sider'
 import styles from '../components/layout/main.less'
-import {Spin, LocaleProvider, Switch } from 'antd'
+import Select, { Spin, LocaleProvider, Switch } from 'antd'
 import { classnames, config } from '../utils'
 import '../components/layout/common.less'
 import enUS from 'antd/lib/locale-provider/en_US';
@@ -21,11 +21,9 @@ import {apiFunc, BASE_URL,
   CLIENT_ID} from '../CommonMethods/api';
   import CustomModal from '../components/customer/modal';
 
-
 const { Sider, Content } = Layout;
 const FormItem = Form.Item
 var dropDownData=[];
-
 function App({ children, location, dispatch, app }) {
   const {
     login,
@@ -44,10 +42,12 @@ function App({ children, location, dispatch, app }) {
     menuPopoverVisibleRight,
     navOpenKeys,
     lock,
+    setting,
     SignUp,
     modules,
     menuTheme,
     headerTheme,
+    selector,
     modalVisible,
     modalType,
     id
@@ -82,9 +82,21 @@ function App({ children, location, dispatch, app }) {
     switchMenuPopover() {
       dispatch({ type: 'app/switchMenuPopver' })
     },
+    setting(){
+      dispatch({type:'app/setting'})
+      modules.forEach(element => {
+        if (element.name.toLowerCase() == "user" || element.name.toLowerCase() == "customer") 
+        {
+          dispatch({ type: 'app/select',payload:{select:true} })
+        }
+      });
+      //  console.log(selector,"selel");
+
+    },
     logout() {
       alert("logout called");
       dispatch({ type: 'app/logout' })
+      // localStorage.removeItem("modules");
       localStorage.removeItem("username")
       localStorage.removeItem("_id")
       localStorage.removeItem("customerId")
@@ -125,6 +137,8 @@ function App({ children, location, dispatch, app }) {
 
   const siderProps = {
     siderFold,
+    selector,
+    setting,
     location,
     navOpenKeys,
     menuTheme,
@@ -277,11 +291,10 @@ function App({ children, location, dispatch, app }) {
               <Bread location={location} />
                 <div className={styles.container}>
                   <div className={styles.content} id="spin">
-                  <BackTop target={() => document.getElementById('main_content')} />
+                  <BackTop target={()=>document.getElementById('main_content')} />
                     {children}
                   </div>
                 </div>
-
               <Footer />
             </Spin>
           </div>
@@ -314,6 +327,7 @@ App.propTypes = {
   loading: PropTypes.object,
   loginButtonLoading: PropTypes.bool,
   login: PropTypes.bool,
+  setting:PropTypes.bool,
   lock: PropTypes.bool,
   SignUp: PropTypes.bool,
   user: PropTypes.object,

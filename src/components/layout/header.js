@@ -41,7 +41,7 @@ render(){
   return (
     
     <div className={styles.header  + " " + this.props.headerTheme}>
-      
+    <h4><b>Welcome {this.state.username}</b> </h4>
     {this.props.isNavbar
       ? <Popover 
           placement='bottomLeft'
@@ -62,7 +62,7 @@ render(){
       <Menu className={'header-menu'} mode='horizontal'  onClick={this.props.handleClickMenu}>
       <SubMenu   className="avatarBadge" title={<Badge dot> <Avatar src="../../assets/avatar/9.jpg" size="default"/></Badge>}>
       <MenuItemGroup>
-          <Menu.Item key="setting:1">Settings</Menu.Item>
+            <Menu.Item key="setting:1"><span onClick={this.props.setting}>Settings</span></Menu.Item>
           <Menu.Item key="logout"><span onClick={this.props.logout}>Logout</span></Menu.Item>
       </MenuItemGroup>
     

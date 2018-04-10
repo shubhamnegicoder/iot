@@ -8,6 +8,8 @@ export default {
   state: {
     list: [],
     loading: false,
+    checked:false,
+    modules: JSON.parse(localStorage.getItem("modules") || '[]'),
     currentItem: {},
     modalVisible: false,
     modalType: 'create',
@@ -125,7 +127,6 @@ export default {
       return { ...state, loading: true }
     },
     querySuccess (state, action) {
-
       const {list, pagination} = action.payload
       return { ...state,
         list,

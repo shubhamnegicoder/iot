@@ -6,6 +6,12 @@ module.exports = [
         clickable: true
     }, 
     {
+        key: 'customer',
+        name: 'Customer',
+        icon: 'team',
+        clickable: true
+    },
+    {
         key: 'asset',
         name: 'Assets',
         icon: 'laptop',
@@ -28,6 +34,7 @@ module.exports = [
         icon: 'pushpin-o',
         clickable: true
     }, 
+    
     {
         key: 'user',
         name: 'Users',
@@ -35,8 +42,8 @@ module.exports = [
         clickable: false,
         child: [
             {
-                key: 'users',
-                name: 'Users'
+                key: 'user',
+                name: 'User'
             },
             {
                 key: 'user_type',

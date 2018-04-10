@@ -1,5 +1,7 @@
 import {login, userInfo, logout,create,query} from '../services/app'
 import {parse} from 'qs'
+import { stat } from 'fs';
+=======
 
 
 // console.log(localStorage.getItem('sberrAdminSiderFoldRight') == null ? 'false': localStorage.getItem('berrAdminSiderFoldRight'));
@@ -15,12 +17,19 @@ export default {
     loading:false,
     lock:false,
     SignUp:false,
+    selector:false||localStorage.getItem("select"),
+    dashboard:false,
+    user:{
+      name:localStorage.getItem("username")
+    },
+    setting:false,
+//     modules:JSON.parse(localStorage.getItem("modules")|| '[]'),
     modules:JSON.parse(localStorage.getItem("modules") ||'[]'),
     modalVisible: false,
     modalType: 'create',
-    user: {
-      name:localStorage.getItem("username")
-    },
+//     user: {
+//       name:localStorage.getItem("username")
+//     },
     loginButtonLoading: false,
     menuPopoverVisible: false,
     siderFold: localStorage.getItem('berrAdminSiderFold') === 'true',
@@ -35,7 +44,8 @@ export default {
 
   subscriptions : {
     setup({dispatch}) {
-      dispatch({type:"login"})
+       dispatch({type:"login"})
+      //  dispatch({type:"set"})
       window.onresize = function () {
         dispatch({type: 'changeNavbar'})
       }
@@ -49,11 +59,14 @@ export default {
       if(data.data){
          body=data.data.module;
          localStorage.setItem("modules",JSON.stringify(body));
-        }
+         localStorage.setItem("customerId",JSON.stringify(data.data._id));
+       }
+      if (data.success) {
+       console.log("if")  
+       var a= yield put({
+//       if (data.success) { 
 
-      if (data.success) { 
-
-        yield put({
+//         yield put({
           type: 'loginSuccess',
           payload: {
             user: {
@@ -64,23 +77,48 @@ export default {
         })
       } else {
         yield put({type:'loginFail'})
+        console.log("fail");
       }
+      // console.log(b,"b");
     },
-    *queryUser({ payload }, {call, put}) {
-      yield put({type: 'showLoading'})
-      const data = yield call(userinfo, parse(payload))
-      if (data.success) {
-        yield put({
-          type: 'loginSuccess',
-          payload: {
-            user: {
-              name: data.username
-            },
-            id:data._id
-          }
-        })
-      }
-      yield put({type: 'hideLoading'})
+    // *queryUser({ payload }, {call, put}) {
+    //   // yield put({type: 'showLoading'})
+    //   const data = yield call(userinfo, parse(payload))
+    //   if (data.success) {
+    //     yield put({
+    //       type: 'loginSuccess',
+    //       payload: {
+    //         user: {
+    //           name: data.username
+    //         },
+    //         modules:"zio"
+    //       }
+    //     })
+    //   }
+    //   yield put({type: 'hideLoading'})
+    // },
+    *setting({ payload }, { call, put }) {
+      yield put({type:'set'})
+    },
+    *select({ payload }, { call, put }) {
+      yield put({ type: 'sel', payload:{select:payload.select} })
+//       }
+//     },
+//     *queryUser({ payload }, {call, put}) {
+//       yield put({type: 'showLoading'})
+//       const data = yield call(userinfo, parse(payload))
+//       if (data.success) {
+//         yield put({
+//           type: 'loginSuccess',
+//           payload: {
+//             user: {
+//               name: data.username
+//             },
+//             id:data._id
+//           }
+//         })
+//       }
+//       yield put({type: 'hideLoading'})
     },
     *logout({ payload }, {call, put}) {
       const data = yield call(logout, parse(payload))
@@ -166,28 +204,55 @@ export default {
           
       }
     },
-    querySuccess (state, action) {
-      
-            const {list, pagination} = action.payload
-            return { ...state,
-              list,
-              loading: false,
-              pagination: {
-                ...state.pagination,
-                ...pagination
-              }}
-          },
-    logoutSuccess(state) {
+    sel(state,action){
+      localStorage.setItem("select",true)
+        return {...state,
+         ...action.payload
+        }
+    },
+    logoutSuccess(state,action) {
+      localStorage.removeItem("select");
+      alert("")
       return {
         ...state,
-        ishidden: false,
-        login: false,
+        ...action.payload,
+        login:false,
+        setting:false,
+        select:false
       }
+    },
+    set(state){
+      alert("set");
+      // localStorage.setItem("setting",action.payload.setting
+      return{
+        ...state,
+        setting:!state.setting
+
+//     querySuccess (state, action) {
+      
+//             const {list, pagination} = action.payload
+//             return { ...state,
+//               list,
+//               loading: false,
+//               pagination: {
+//                 ...state.pagination,
+//                 ...pagination
+//               }}
+//           },
+//     logoutSuccess(state) {
+//       return {
+//         ...state,
+//         ishidden: false,
+//         login: false,
+      }
+
     },
     loginFail(state) {
       // console.log(state,"fail");
       return {
         ...state,
+        ...action.payload,
+        setting:state.setting,
         login: false,
         loginButtonLoading: false
       }
@@ -200,7 +265,6 @@ export default {
         dashhide:true,
         // customerId:localStorage.getItem("customerId")
         selectValue:action.payload
-        
       }
     },
     showLoginButtonLoading(state) {

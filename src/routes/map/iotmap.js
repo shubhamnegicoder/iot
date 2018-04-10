@@ -32,6 +32,7 @@ export default class IotMap extends Component {
     superagent
     .get(this.props.all_device_api)
     .end((err, response) => {
+      console.log(response,"map");
       if (response !== undefined) {
         this.setState({allDeviceData: response.body.data})
       }
@@ -95,7 +96,7 @@ export default class IotMap extends Component {
   }
 }
 
-IotMap.propTypes = {
+IotMap.propTypes ={
   all_device_api: PropTypes.string
 }
 
