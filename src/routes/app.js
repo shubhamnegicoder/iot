@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
+import { Link } from 'dva/router'
 import Login from './login'
 import Header from '../components/layout/header'
 import Dashboard from '../routes/dashboard_1'
@@ -170,14 +171,18 @@ function App({ children, location, dispatch, app }) {
 
   
   var handleok=(e)=>{
+    console.log(e,"selevtjhfh")
      dispatch({
        type: 'app/showState',
        payload:e
      })
      dispatch({type:"dashboard/allUser",payload:{ticket:false}})
-      // window.location.pathname='./dashboard_1'
+  
+   
+    //  window.location.href='./routes/dashboard_1'
+
    }
- 
+
   //  console.log(selectValue,"selectstate");
   async function customer(){
     var data2= await apiFunc.getCustomerList();
@@ -238,32 +243,31 @@ function App({ children, location, dispatch, app }) {
         className={classnames(styles.layout, { [styles.fold]: isNavbar ? false : siderFold  }, {  [styles.withnavbar]: isNavbar  })}>
         {!isNavbar  ? <aside
             className={classnames(styles.sider , (menuTheme=="dark") ? styles.dark : menuTheme=="light" ?  styles.light : "menu_"+menuTheme )} >
-      
+            
             <div>
             
                     <Form >
                     <FormItem label='Customer List' hasFeedback {...formItemLayout}>
                     {
-                    (<Select  placeholder="Select customer" onChange={(e)=>{handleok(e)}} >
-                      {  
-                app.dropDownData && app.dropDownData.length && app.dropDownData.map((item,index)=>{
+                    ( <Select  placeholder="Select customer" onChange={(e)=>{handleok(e)}} >
 
-                        return <Select.Option value={item._id} key = {index} >{item.customerName} </Select.Option>
+                      {
+                           app.dropDownData && app.dropDownData.length && app.dropDownData.map((item,index)=>{
+
+                        return <Select.Option name={item.customerName} value={item._id} key = {index}><Link to='dashboard'>{item.customerName}</Link></Select.Option>
                       })}
                       </Select>
-                    )}
-
+                       )
+                    }
                 </FormItem>
-                <Row>
-                   <Button type='primary' size='large' onClick={onAdd}>
-            Add Customer
-          </Button>
-        </Row>
-                  </Form >
-          </div>
-                  {ishidden?<CustomSider {...siderProps} />:<div></div>};
-                {/* <Dashboard {...loginProps}/> */}
 
+                <FormItem>
+                   <Button type='primary' size='large' onClick={onAdd}>Add Customer</Button>
+                </FormItem>
+                  </Form >
+                  
+                 </div>
+                  {ishidden?<CustomSider {...siderProps} />:<div></div>}
           </aside>
           : ''}
         <div className={styles.main} id="main_content">

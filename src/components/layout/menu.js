@@ -7,7 +7,7 @@ import find from 'lodash/find';
 const topMenus = menu.map(item => item.key)
 console.log(topMenus, "top");
 const getMenus = function (menuArray, siderFold, modules, parentPath) {
-  // console.log(menuArray, "mod");
+  // console.log(menuArray, "modarrayyyyyy");
   // console.log(modules, "module");
   parentPath = parentPath || '/'
   return menuArray.map(item => {
@@ -17,7 +17,6 @@ const getMenus = function (menuArray, siderFold, modules, parentPath) {
       if (item.key == modules[i].name.toLowerCase()) {
 
         if (item.child) {
-          // console.log("suc",item.icon);
           return (
             <Menu.SubMenu
               key={item.key}
@@ -34,10 +33,10 @@ const getMenus = function (menuArray, siderFold, modules, parentPath) {
             </Menu.SubMenu>
           )
         } else {
-          // console.log("else");
+          console.log("else");
           return (
             <Menu.Item key={item.key}>
-
+                 {/* {console.log(item.key, "item")} */}
               <Link to={parentPath + item.key}>
                 {item.icon
                   ? <Icon type={item.icon} />
