@@ -24,6 +24,8 @@ const displayNone = {
   display: "none"
 }
 const modal = ({
+  id,
+  customerId,
   visible,
   type,
   item = {},
@@ -36,6 +38,7 @@ const modal = ({
     getFieldsValue
   }
 }) => {
+  console.log(customerId,"dekhoooooooooo");
   function handleOk() {
     validateFields((errors) => {
       if (errors) {
@@ -50,6 +53,8 @@ const modal = ({
   }
 
   const modalOpts = {
+    id,
+    customerId,
     title: `${type === 'create'
       ? 'Add New Device'
       : 'Edit Device'}`,
@@ -64,14 +69,14 @@ const modal = ({
     
       <Modal {...modalOpts}>
         <Form horizontal>
-          <FormItem style={displayNone} label='_id' hasFeedback {...formItemLayout}>
+          <FormItem  label='_id' hasFeedback {...formItemLayout}>
             {getFieldDecorator('_id', {
-              initialValue: item._id,
+              initialValue:id,
             })(<Input/>)}
           </FormItem>
-          <FormItem style={displayNone} label='clientId' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('clientId', {
-              initialValue: CLIENT_ID,
+          <FormItem  label='customertId' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('customerId', {
+              initialValue: customerId,
             })(<Input />)}
           </FormItem>
           <FormItem  label='Serial No.' hasFeedback {...formItemLayout}>
@@ -107,13 +112,13 @@ const modal = ({
                ]
             })(type==="update" ?<Select placeholder="Select Asset" disabled={true} >
               {
-                dropdown.map((item, index) => {
+                dropdown && dropdown.map((item, index) => {
                   return <Select.Option value={item.assetId} key={index} >{item.assetName}</Select.Option>
                 })}
             </Select>:<Select placeholder="Select Asset" >
                 {
-                  dropdown.map((item, index) => {
-                    return <Select.Option value={item.assetId} key={index} >{item.assetName}</Select.Option>
+                 dropdown && dropdown.map((item, index) => {
+                    return <Select.Option value={item._id} key={index} >{item.assetName}</Select.Option>
                   })}
               </Select>
              )}

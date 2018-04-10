@@ -8,8 +8,10 @@ import {Row, Col} from 'antd';
 
 function AssetsType({location, dispatch, assetsType}) {
   const {
+    id,
     loading,
     list,
+    customerId,
     pagination,
     currentItem,
     modalVisible,
@@ -17,13 +19,14 @@ function AssetsType({location, dispatch, assetsType}) {
     modalType
   } =assetsType
   const {field, keyword} = location.query
-console.log("assettype",assetsType)
   const userModalProps = {
+    id,
     item: modalType === 'create'
       ? {}
       : currentItem,
     type: modalType,
     visible: modalVisible,
+    customerId,
     onOk(data) {
       dispatch({type: `assetsType/${modalType}`, payload: data})
     },
@@ -38,6 +41,7 @@ console.log("assettype",assetsType)
     pagination: pagination,
     onPageChange(page) {
       const {query, pathname} = location
+     
       dispatch(routerRedux.push({
         pathname: pathname,
         query: {
@@ -60,7 +64,7 @@ console.log("assettype",assetsType)
       })
     }
   }
-
+  console.log(location,"path")
   const userSearchProps = {
     field,
     keyword,
@@ -79,7 +83,9 @@ console.log("assettype",assetsType)
       dispatch({
         type: 'assetsType/showModal',
         payload: {
-          modalType: 'create'
+          modalType: 'create',
+          id:localStorage.getItem("_id"),
+          customerId:localStorage.getItem("customerId")
         }
       })
     }

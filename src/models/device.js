@@ -8,6 +8,8 @@ export default {
   state: {
     list: [],
     dropdown:[],
+    id:localStorage.getItem("_id"),
+    customerId:localStorage.getItem("customerId"),
     loading: false,
     currentItem: {},
     modalVisible: false,
@@ -40,6 +42,7 @@ export default {
       //console.log('here',payload)
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
+      console.log(data,"device list")
       if (data) {
 
         yield put({

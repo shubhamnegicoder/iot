@@ -1,7 +1,9 @@
 import { request } from '../utils'
+import {BASE_URL, CLIENT_ID} from '../CommonMethods/api'
 
 export async function query (params) {
-  return request('http://139.59.95.113:8080/allDevice?clientId=131', {
+  const CLIENT_ID = localStorage.getItem("customerId");
+  return request('http://139.59.95.113:8080/allDevice?customerId='+CLIENT_ID, {
     method: 'get',
     data: params
   })

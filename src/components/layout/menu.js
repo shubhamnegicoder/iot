@@ -21,6 +21,18 @@ const getMenus = function (menuArray, siderFold, modules,selector,parentPath)
         if (element.child) 
         {
           console.log("suc", element.icon);
+// const getMenus = function (menuArray, siderFold, modules, parentPath) {
+//   // console.log(menuArray, "modarrayyyyyy");
+//   // console.log(modules, "module");
+//   parentPath = parentPath || '/'
+//   return menuArray.map(item => {
+
+//       for(var i=0;i<modules.length;i++)
+//       {
+//       if (item.key == modules[i].name.toLowerCase()) {
+
+//         if (item.child) {
+
           return (
             <Menu.SubMenu
               key={element.key}
@@ -44,6 +56,12 @@ const getMenus = function (menuArray, siderFold, modules,selector,parentPath)
               <Link to={parentPath + element.key}>
                 {element.icon
                   ? <Icon type={element.icon} />
+=======
+//             <Menu.Item key={item.key}>
+//                  {/* {console.log(item.key, "item")} */}
+//               <Link to={parentPath + item.key}>
+//                 {item.icon
+//                   ? <Icon type={item.icon} />
                   : ''}
                 {siderFold && topMenus.indexOf(element.key) >= 0
                   ? ''
@@ -57,6 +75,9 @@ const getMenus = function (menuArray, siderFold, modules,selector,parentPath)
       else if (element.key=="dashboard")
       {
         console.log("false");
+      
+//       else {
+        // console.log("false");
         return (
           <Menu.Item key={element.key}>
             <Link to={parentPath + element.key}>
@@ -153,10 +174,17 @@ function Menus({
   changeOpenKeys,
   modules
 }) {
+
  
   var menuItems = getMenus(menu, siderFold, modules,selector);
   console.log(menuItems, "menues");
   const onOpenChange = (openKeys)=>{
+
+  // console.log(getMenus(menu, siderFold, modules), "func");
+  // console.log(modules,"func");
+//   var menuItems = getMenus(menu, siderFold, modules)
+//   // console.log(menuItems, "menues");
+//   const onOpenChange = (openKeys) => {
     const latestOpenKey = find(openKeys, key => !(navOpenKeys.indexOf(key) > -1))
     const latestCloseKey = find(navOpenKeys, key => !(openKeys.indexOf(key) > -1))
     let nextOpenKeys = []

@@ -8,6 +8,8 @@ export default {
   state: {
     list: [],
     dropDownData: [],
+    id:localStorage.getItem("_id"),
+    customerId:localStorage.getItem("customerId"),
     branchDropDown: [],
     loading: false,
     currentItem: {},
@@ -21,6 +23,8 @@ export default {
       total: null
     }
   },
+
+
 
   subscriptions: {
     setup ({ dispatch, history }) {
@@ -43,7 +47,7 @@ export default {
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
       if (data) {
-        console.log("get data", data)
+        // console.log("get data", data)
         yield put({
           type: 'querySuccess',
           payload: {
@@ -74,16 +78,17 @@ export default {
     *create ({ payload }, { call, put }) {
       yield put({ type: 'hideModal' })
       yield put({ type: 'showLoading' })
-      // console.log('====',payload)
+      // console.log(id,"bhuuututututututut");
+    // console.log('====',payload)
       const data = yield call(create, payload)
-      console.log("data in add",data)
+      // console.log("data in add",data)
       const data2 = yield call(query, parse(payload))
       if (data && data.success) {
         //console.log('====',data2)
         yield put({ type: 'showLoading' })
         const data = yield call(query, parse(payload))
         if (data) {
-          console.log("data in add",data2)
+          // console.log("data in add",data2)
           yield put({
             type: 'querySuccess',
             payload: {

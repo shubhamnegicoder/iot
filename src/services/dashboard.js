@@ -22,7 +22,10 @@ export async function queryRegion(params) {
   })
 }
   export async function allUser(params) {
-    return request(BASE_URL+'/getCount?clientId='+CLIENT_ID, {
+   const id=localStorage.getItem("_id");
+   const customerId=localStorage.getItem("customerId");
+    console.log(id,customerId,"ticket id")
+    return request(BASE_URL+'/getCount?_id=' +id+ '&customerId='+customerId, {
       method: 'get',
       data: params
     })

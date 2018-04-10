@@ -7,6 +7,8 @@ export default {
 
   state: {
     list: [],
+    customerId:localStorage.getItem("customerId"),
+    id:localStorage.getItem("_id"),
     loading: false,
     currentItem: {},
     modalVisible: false,
@@ -40,8 +42,9 @@ export default {
       //console.log('here',payload)
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
+      console.log("get data", data)
       if (data) {
-        console.log("get data", data)
+       
         yield put({
           type: 'querySuccess',
           payload: {
@@ -80,7 +83,7 @@ export default {
         yield put({ type: 'showLoading' })
         const data = yield call(query, parse(payload))
         if (data) {
-          console.log("data in add",data2)
+          // console.log("data in add",data2)
           yield put({
             type: 'querySuccess',
             payload: {
@@ -141,5 +144,6 @@ export default {
       return { ...state, modalVisible: false }
     }
   }
+
 
 }

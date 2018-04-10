@@ -25,13 +25,12 @@ const displayNone = {
   display: "none"
 }
 const modal = ({
-  id,
   visible,
+  id,
   type,
   item = {},
   onOk,
   onCancel,
-  customerId,
   form: {
     getFieldDecorator,
     validateFields,
@@ -45,20 +44,20 @@ const modal = ({
       }
       const data = {
         ...getFieldsValue(),
-        key: item.key
+       
       }
+      console.log(data,"item");
       onOk(data)
     })
   }
 
   const modalOpts = {
     title: `${type === 'create'
-      ? 'Create New Asset Type'
+      ? 'Create New Customer'
       : 'Edit Asset Type'}`,
     visible,
     onOk: handleOk,
     onCancel,
-    customerId,
     wrapClassName: 'vertical-center-modal'
   }
 
@@ -66,28 +65,28 @@ const modal = ({
     <LocaleProvider locale={enUS}>
       <Modal {...modalOpts}>
         <Form horizontal>
-          <FormItem label='_id' hasFeedback {...formItemLayout}>
+          <FormItem   label='_id' hasFeedback {...formItemLayout}>
             {getFieldDecorator('_id', {
-              initialValue: id,
+              initialValue:id,
             })(<Input/>)}
           </FormItem>
-          <FormItem  label='customerId' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('customerId', {
-              initialValue: customerId,
+          {/* <FormItem style={displayNone} label='clientId' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('clientId', {
+              initialValue: CLIENT_ID,
             })(<Input/>)}
-          </FormItem>
-          <FormItem label='Asset Type Name' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('assetTypeName', {
-              initialValue: item.assetTypeName,
+          </FormItem> */}
+          <FormItem label='Customer Name' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('customerName', {
+              initialValue:item.customerName,
               rules: [
                 {
                   required: true,
-                  message: 'Asset Name is required'
+                  message: 'customer Name is required'
                 }
               ]
-            })(<Input placeholder="Asset Type Name"/>)}
+            })(<Input placeholder="customer Name"/>)}
           </FormItem>
-          <FormItem label="Status" {...formItemLayout}>
+          {/* <FormItem label="Status" {...formItemLayout}>
              {getFieldDecorator('status', {
                initialValue: item.status,
                rules: [
@@ -101,7 +100,7 @@ const modal = ({
                   <Select.Option value="INACTIVE" >Inactive</Select.Option>
                 </Select>
              )}
-          </FormItem>
+          </FormItem> */}
         </Form>
       </Modal>
     </LocaleProvider>

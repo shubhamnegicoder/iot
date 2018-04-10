@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import superagent from 'superagent';
 import {BASE_URL, CLIENT_ID} from '../../CommonMethods/api';
 
+console.log(CLIENT_ID,"map customer")
+
 const style = {
   width: '100%',
   height: '100%'
@@ -58,7 +60,7 @@ export default class IotMap extends Component {
     const {
       lat,
       lng
-    } = this.state.allDeviceData[0] || mapCenter
+    } = this.state.allDeviceData && this.state.allDeviceData[0] || mapCenter
     return (
       <Map google={window.google}
           zoom={15}
@@ -66,7 +68,7 @@ export default class IotMap extends Component {
             lat: lat,
             lng: lng }}
           onClick={this.onMapClicked}>
-          {this.state.allDeviceData.map((device, index) => {
+          {this.state.allDeviceData && this.state.allDeviceData.map((device, index) => {
             return <Marker key={index} onClick={this.onMarkerClick}
               deviceType={device.deviceType}
               status={device.status}
@@ -97,8 +99,9 @@ export default class IotMap extends Component {
 IotMap.propTypes ={
   all_device_api: PropTypes.string
 }
+
 IotMap.defaultProps = {
-  all_device_api: BASE_URL+"/allDeviceData?clientId="+CLIENT_ID
+  all_device_api: BASE_URL+"/allDeviceRecentData?customerId="+CLIENT_ID
 }
 // google api loads manually if no api script in application
 // export default GoogleApiWrapper({

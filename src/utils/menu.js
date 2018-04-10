@@ -14,19 +14,20 @@ module.exports = [
     {
         key: 'asset',
         name: 'Assets',
-        icon: 'team',
+        icon: 'laptop',
         clickable: false,
         child: [
+            {
+                key: 'assets',
+                name: 'Assets'
+            },
             {
                 key: 'assets_type',
                 name: 'Assets Type'
             }
-            // {
-            //     key: 'user_type',
-            //     name: 'User Type'
-            // }
+           
         ]
-    }, 
+    },
      {
         key: 'device',
         name: 'Devices',
