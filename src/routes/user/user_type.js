@@ -13,21 +13,25 @@ function UserType({location, dispatch, userType}) {
     pagination,
     currentItem,
     modalVisible,
-    modalType
-  } = userType
+    modalType,
+    modules,
+    checked
+  }=userType
   const {field, keyword} = location.query
 
   const userModalProps = {
+    modules,
+    checked,
     item: modalType === 'create'
       ? {}
       : currentItem,
     type: modalType,
     visible: modalVisible,
     onOk(data) {
-      dispatch({type: `userType/${modalType}`, payload: data})
+      dispatch({type:`userType/${modalType}`, payload:data})
     },
     onCancel() {
-      dispatch({type: 'userType/hideModal'})
+      dispatch({type:'userType/hideModal'})
     }
   }
 

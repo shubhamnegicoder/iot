@@ -1,5 +1,6 @@
 import {login, userInfo, logout} from '../services/app'
 import {parse} from 'qs'
+import { stat } from 'fs';
 export default {
   namespace : 'app',
   state : {
@@ -7,9 +8,12 @@ export default {
     loading:false,
     lock:false,
     SignUp:false,
-    user: {
+    selector:false||localStorage.getItem("select"),
+    dashboard:false,
+    user:{
       name:localStorage.getItem("username")
     },
+    setting:false,
     modules:JSON.parse(localStorage.getItem("modules")|| '[]'),
     loginButtonLoading: false,
     menuPopoverVisible: false,
@@ -25,7 +29,8 @@ export default {
   subscriptions : {
     
     setup({dispatch}) {
-      dispatch({type:"login"})
+       dispatch({type:"login"})
+      //  dispatch({type:"set"})
       window.onresize = function () {
         dispatch({type: 'changeNavbar'})
       }
@@ -41,6 +46,7 @@ export default {
        if(data.data){
          body=data.data.module;
          localStorage.setItem("modules",JSON.stringify(body));
+         localStorage.setItem("customerId",JSON.stringify(data.data._id));
        }
       if (data.success) {
        console.log("if")  
@@ -75,6 +81,12 @@ export default {
     //   }
     //   yield put({type: 'hideLoading'})
     // },
+    *setting({ payload }, { call, put }) {
+      yield put({type:'set'})
+    },
+    *select({ payload }, { call, put }) {
+      yield put({ type: 'sel', payload:{select:payload.select} })
+    },
     *logout({ payload }, {call, put}) {
         yield put({type:'logoutSuccess'})
     },
@@ -129,12 +141,31 @@ export default {
         loginButtonLoading:false
       }
     },
+    sel(state,action){
+      localStorage.setItem("select",true)
+        return {...state,
+         ...action.payload
+        }
+    },
     logoutSuccess(state,action) {
+      localStorage.removeItem("select");
+      alert("")
       return {
         ...state,
         ...action.payload,
-        login:false
+        login:false,
+        setting:false,
+        select:false
       }
+    },
+    set(state){
+      alert("set");
+      // localStorage.setItem("setting",action.payload.setting
+      return{
+        ...state,
+        setting:!state.setting
+      }
+
     },
     loginFail(state,action) {
       console.log(state,"fail")
@@ -142,6 +173,7 @@ export default {
         ...state,
         ...action.payload,
         login:false,
+        setting:state.setting,
         loginButtonLoading:false
       }
     },

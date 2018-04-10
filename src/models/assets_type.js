@@ -10,7 +10,7 @@ export default {
     loading: false,
     currentItem: {},
     modalVisible: false,
-    modalType: 'create',
+  
     pagination: {
       showSizeChanger: true,
       showQuickJumper: true,
@@ -125,7 +125,6 @@ export default {
       return { ...state, loading: true }
     },
     querySuccess (state, action) {
-
       const {list, pagination} = action.payload
       return { ...state,
         list,

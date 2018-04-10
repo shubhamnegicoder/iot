@@ -13,10 +13,11 @@ function AssetsType({location, dispatch, assetsType}) {
     pagination,
     currentItem,
     modalVisible,
+    modules,
     modalType
-  } = assetsType
+  } =assetsType
   const {field, keyword} = location.query
-
+console.log("assettype",assetsType)
   const userModalProps = {
     item: modalType === 'create'
       ? {}

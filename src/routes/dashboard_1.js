@@ -31,7 +31,7 @@ function Dashboard({dashboard, dispatch}) {
   const numberCards = dashboardCard.map((item, key) =>
 
     <Col key={key} lg={8} md={12}>
-      <NumberCard {...item} />
+      <NumberCard {...item}/>
     </Col>)
 
   return (
@@ -39,8 +39,7 @@ function Dashboard({dashboard, dispatch}) {
       <Row gutter={24}>
         {numberCards}
       </Row>
-
-      <IotMap />
+      <IotMap/>
     </div>
   )
 }
