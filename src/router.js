@@ -121,6 +121,7 @@ export default function ({history,app}) {
                             cb(null, require('./routes/zone'))
                         })
                     }
+
                 },
                 {
                     path: 'branch',

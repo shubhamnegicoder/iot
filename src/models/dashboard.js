@@ -87,7 +87,7 @@ export default {
             yield put({type: 'queryWeather', payload: {...data}
             })
         },
-        
+
         *queryWeather({payload}, {call, put}) {
           try{
                 var position = yield call(getCurrentPosition); // get geo information lat,long
@@ -99,8 +99,7 @@ export default {
             }catch(e){
                 console.log("Error weather update")
            }
-               
-                    
+
         },
 
         *allUser({ payload }, { call, put }) {
