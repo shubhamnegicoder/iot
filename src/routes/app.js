@@ -299,7 +299,7 @@ function App({ children, location, dispatch, app }) {
         <div className={styles.spin}>
           <Login {...loginProps} />
         </div>
-        
+
       </div>
     )
   }
