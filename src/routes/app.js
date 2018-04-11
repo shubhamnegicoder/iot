@@ -100,6 +100,7 @@ function App({ children, location, dispatch, app }) {
       localStorage.removeItem("customerId")
       localStorage.removeItem("modules")
       localStorage.removeItem("dropDownData")
+      localStorage.removeItem("selector");
       window.location.href ="/"
     },
     switchSider() {

@@ -6,7 +6,7 @@ import find from 'lodash/find';
 
 const topMenus = menu.map(item => item.key)
 console.log(topMenus, "top");
-const getMenus = function (menuArray, siderFold, modules,selector,setting,ishidden,parentPath) 
+const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden,parentPath) 
 { console.log("err",menuArray);
 console.log(selector,"select");
 console.log(modules,"modules");
@@ -49,7 +49,7 @@ console.log(modules,"modules");
                     : element.name
                 } </span>}>
               {/* {console.log(item.key, "item")} */}
-              {getMenus(element.child, siderFold, modules,selector,setting, parentPath + element.key + '/')}
+              {getMenus(element.child, siderFold, modules,selector,setting,null, parentPath + element.key + '/')}
             </Menu.SubMenu>
           )
         } else {
@@ -101,69 +101,67 @@ console.log(modules,"modules");
 }
     else if(ishidden)
     {
-      return menuArray.map(item => { 
-      for(var j=0;j<menuArray.length;j++)
+      return menuArray.map(item => 
     {  
-        console.log(menuArray[j].key.toLowerCase(),j,"menua");
       for(var i=0;i<modules.length;i++)
       {
-         console.log("menu loop",menuArray[i].key,modules[i].name.toLowerCase())
-      if (menuArray[j].key==modules[i].name.toLowerCase()) 
+        if ((item.key == modules[i].name.toLowerCase()) && (item.key !== "user") && (item.key !=="user_type") && (item.key !== "customer")||(item.key=="dashboard") ) 
       {
-          console.log("sucsess");
-        if (menuArray[j].child) {
-          console.log("suc", menuArray[j].icon);
+          console.log("ishidden");
+        if (item.child) 
+        {
+          console.log("item",item.child);
           return (
             <Menu.SubMenu
-              key={menuArray[j].key}
+              key={item.key}
               title={<span> {
-                menuArray[j].icon ? <Icon type={menuArray[j].icon} /> : ''
+                item.icon ? <Icon type={item.icon} /> : ''
               }
                 {
-                  siderFold && topMenus.indexOf(menuArray[j].key) >= 0
+                  siderFold && topMenus.indexOf(item.key) >= 0
                     ? ''
-                    : menuArray[j].name
+                    : item.name
                 } </span>}>
               {/* {console.log(item.key, "item")} */}
-              {getMenus(menuArray[j].child, siderFold, modules, parentPath + menuArray[j].key + '/')}
+              {getMenus(item.child,siderFold,modules,selector,setting,ishidden, parentPath +item.key + '/')}
             </Menu.SubMenu>
           )
         } else {
           console.log("else");
           return (
-            <Menu.Item key={menuArray[j].key}>
+            <Menu.Item key={item.key}>
 
-              <Link to={parentPath + menuArray[j].key}>
+              <Link to={parentPath + item.key}>
                 {item.icon
-                  ? <Icon type={menuArray[j].icon} />
+                  ? <Icon type={item.icon} />
                   : ''}
-                {siderFold && topMenus.indexOf(menuArray[j].key) >= 0
+                {siderFold && topMenus.indexOf(item.key) >= 0
                   ? ''
-                  : menuArray[j].name}
+                  : item.name}
               </Link>
             </Menu.Item>
           )
         }
       }
 
-      else {
-        console.log("false");
-        return (
-          <Menu.Item key={menuArray[j].key}>
-            <Link to={parentPath + menuArray[j].key}>
-              {menuArray[j].icon
-                ? <Icon type={menuArray[j].icon} />
-                : ''}
-              {siderFold && topMenus.indexOf(menuArray[j].key) >= 0
-                ? ''
-                : menuArray[j].name}
-            </Link>
-          </Menu.Item>
-        )
+      // else {
+      //   console.log("false");
+      //   return (
+      //     <Menu.Item key={item.key}>
+      //       <Link to={parentPath + item.key}>
+      //         {item.icon
+      //           ? <Icon type={item.icon} />
+      //           : ''}
+      //         {siderFold && topMenus.indexOf(item.key) >= 0
+      //           ? ''
+      //           : item.name}
+      //       </Link>
+      //     </Menu.Item>
+      //   )
 
-      }
+      // }
     }
-   }
+   
     })
 
 
