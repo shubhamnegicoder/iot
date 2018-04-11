@@ -181,19 +181,18 @@ export default {
         ...state,
         ...action.payload,
         login: true,
-        loginButtonLoading:false
-          
+        loginButtonLoading:false,
+        modules:JSON.parse(localStorage.getItem("modules"))
       }
     },
     sel(state,action){
-
       localStorage.setItem("selector",action.payload.selector)
         return {...state,
          ...action.payload,
         }
     },
     logoutSuccess(state,action) {
-      localStorage.removeItem("selector");
+      // localStorage.removeItem("selector");
       alert("")
       return {
         ...state,
@@ -209,7 +208,8 @@ export default {
       // localStorage.setItem("setting",action.payload.setting
       return{
         ...state,
-        setting:!state.setting
+        setting:!state.setting,
+        
       }},
 //     querySuccess (state, action) {
       
