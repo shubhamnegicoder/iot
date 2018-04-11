@@ -9,17 +9,15 @@ import Bread from '../components/layout/bread'
 import Footer from '../components/layout/footer'
 import CustomSider from '../components/layout/sider'
 import styles from '../components/layout/main.less'
-import Select, { Spin, LocaleProvider, Switch } from 'antd'
+import { Spin, LocaleProvider, Switch } from 'antd'
 import { classnames, config } from '../utils'
 import '../components/layout/common.less'
 import enUS from 'antd/lib/locale-provider/en_US';
 import RightSider from '../components/layout/rightSider';
 import { Layout,Form,Select,Row,Button,Modal } from 'antd';
-
 import { BackTop } from 'antd';
-import {apiFunc, BASE_URL,
-  CLIENT_ID} from '../CommonMethods/api';
-  import CustomModal from '../components/customer/modal';
+import {apiFunc, BASE_URL,CLIENT_ID} from '../CommonMethods/api';
+import CustomModal from '../components/customer/modal';
 
 const { Sider, Content } = Layout;
 const FormItem = Form.Item
@@ -100,6 +98,8 @@ function App({ children, location, dispatch, app }) {
       localStorage.removeItem("username")
       localStorage.removeItem("_id")
       localStorage.removeItem("customerId")
+      localStorage.removeItem("modules")
+      localStorage.removeItem("dropDownData")
       window.location.href ="/"
     },
     switchSider() {
@@ -143,6 +143,7 @@ function App({ children, location, dispatch, app }) {
     navOpenKeys,
     menuTheme,
     modules,
+    ishidden,
     changeTheme() {
       dispatch({ type: 'app/changeTheme' })
     },
@@ -185,7 +186,6 @@ function App({ children, location, dispatch, app }) {
 
   
   var handleok=(e)=>{
-    console.log(e,"selevtjhfh")
      dispatch({
        type: 'app/showState',
        payload:e
@@ -281,7 +281,7 @@ function App({ children, location, dispatch, app }) {
                   </Form >
                   
                  </div>
-                  {ishidden?<CustomSider {...siderProps} />:<div></div>}
+                  <CustomSider {...siderProps} />
           </aside>
           : ''}
         <div className={styles.main} id="main_content">

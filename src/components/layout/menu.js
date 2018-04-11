@@ -6,10 +6,14 @@ import find from 'lodash/find';
 
 const topMenus = menu.map(item => item.key)
 console.log(topMenus, "top");
-const getMenus = function (menuArray, siderFold, modules,selector,parentPath) 
-{ console.log("err");
+const getMenus = function (menuArray, siderFold, modules,selector,setting,ishidden,parentPath) 
+{ console.log("err",menuArray);
+console.log(selector,"select");
+console.log(modules,"modules");
   parentPath = parentPath||'/'
- if(selector)
+ if(setting)
+ {
+  if(selector)
   {
     return menuArray.map(element => 
       { console.log(element,"elly")
@@ -45,7 +49,7 @@ const getMenus = function (menuArray, siderFold, modules,selector,parentPath)
                     : element.name
                 } </span>}>
               {/* {console.log(item.key, "item")} */}
-              {getMenus(element.child, siderFold, modules,selector, parentPath + element.key + '/')}
+              {getMenus(element.child, siderFold, modules,selector,setting, parentPath + element.key + '/')}
             </Menu.SubMenu>
           )
         } else {
@@ -56,7 +60,6 @@ const getMenus = function (menuArray, siderFold, modules,selector,parentPath)
               <Link to={parentPath + element.key}>
                 {element.icon
                   ? <Icon type={element.icon} />
-=======
 //             <Menu.Item key={item.key}>
 //                  {/* {console.log(item.key, "item")} */}
 //               <Link to={parentPath + item.key}>
@@ -95,7 +98,81 @@ const getMenus = function (menuArray, siderFold, modules,selector,parentPath)
     
   })
  }
-} 
+}
+    else if(ishidden)
+    {
+      return menuArray.map(item => { 
+      for(var j=0;j<menuArray.length;j++)
+    {  
+        console.log(menuArray[j].key.toLowerCase(),j,"menua");
+      for(var i=0;i<modules.length;i++)
+      {
+         console.log("menu loop",menuArray[i].key,modules[i].name.toLowerCase())
+      if (menuArray[j].key==modules[i].name.toLowerCase()) 
+      {
+          console.log("sucsess");
+        if (menuArray[j].child) {
+          console.log("suc", menuArray[j].icon);
+          return (
+            <Menu.SubMenu
+              key={menuArray[j].key}
+              title={<span> {
+                menuArray[j].icon ? <Icon type={menuArray[j].icon} /> : ''
+              }
+                {
+                  siderFold && topMenus.indexOf(menuArray[j].key) >= 0
+                    ? ''
+                    : menuArray[j].name
+                } </span>}>
+              {/* {console.log(item.key, "item")} */}
+              {getMenus(menuArray[j].child, siderFold, modules, parentPath + menuArray[j].key + '/')}
+            </Menu.SubMenu>
+          )
+        } else {
+          console.log("else");
+          return (
+            <Menu.Item key={menuArray[j].key}>
+
+              <Link to={parentPath + menuArray[j].key}>
+                {item.icon
+                  ? <Icon type={menuArray[j].icon} />
+                  : ''}
+                {siderFold && topMenus.indexOf(menuArray[j].key) >= 0
+                  ? ''
+                  : menuArray[j].name}
+              </Link>
+            </Menu.Item>
+          )
+        }
+      }
+
+      else {
+        console.log("false");
+        return (
+          <Menu.Item key={menuArray[j].key}>
+            <Link to={parentPath + menuArray[j].key}>
+              {menuArray[j].icon
+                ? <Icon type={menuArray[j].icon} />
+                : ''}
+              {siderFold && topMenus.indexOf(menuArray[j].key) >= 0
+                ? ''
+                : menuArray[j].name}
+            </Link>
+          </Menu.Item>
+        )
+
+      }
+    }
+   }
+    })
+
+
+
+  }
+}
+
+
+
   // return menuArray.map(item => { 
 //       for(var j=0;j<menuArray.length;j++)
 //     {  
@@ -171,12 +248,13 @@ function Menus({
   handleClickNavMenu,
   navOpenKeys,
   changeSignUp,
+  ishidden,
   changeOpenKeys,
   modules
 }) {
 
  
-  var menuItems = getMenus(menu, siderFold, modules,selector);
+  var menuItems = getMenus(menu, siderFold, modules,selector,setting,ishidden);
   console.log(menuItems, "menues");
   const onOpenChange = (openKeys)=>{
 

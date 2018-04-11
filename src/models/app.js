@@ -1,7 +1,5 @@
 import {login, userInfo, logout,create,query} from '../services/app'
 import {parse} from 'qs'
-import { stat } from 'fs';
-=======
 
 
 // console.log(localStorage.getItem('sberrAdminSiderFoldRight') == null ? 'false': localStorage.getItem('berrAdminSiderFoldRight'));
@@ -17,7 +15,7 @@ export default {
     loading:false,
     lock:false,
     SignUp:false,
-    selector:false||localStorage.getItem("select"),
+    selector:false||localStorage.getItem("selector"),
     dashboard:false,
     user:{
       name:localStorage.getItem("username")
@@ -101,25 +99,8 @@ export default {
       yield put({type:'set'})
     },
     *select({ payload }, { call, put }) {
-      yield put({ type: 'sel', payload:{select:payload.select} })
-//       }
-//     },
-//     *queryUser({ payload }, {call, put}) {
-//       yield put({type: 'showLoading'})
-//       const data = yield call(userinfo, parse(payload))
-//       if (data.success) {
-//         yield put({
-//           type: 'loginSuccess',
-//           payload: {
-//             user: {
-//               name: data.username
-//             },
-//             id:data._id
-//           }
-//         })
-//       }
-//       yield put({type: 'hideLoading'})
-    },
+      yield put({ type: 'sel', payload:{selector:payload.select} })
+      },
     *logout({ payload }, {call, put}) {
       const data = yield call(logout, parse(payload))
       if (data.success) {
@@ -205,18 +186,20 @@ export default {
       }
     },
     sel(state,action){
-      localStorage.setItem("select",true)
+
+      localStorage.setItem("selector",action.payload.selector)
         return {...state,
-         ...action.payload
+         ...action.payload,
         }
     },
     logoutSuccess(state,action) {
-      localStorage.removeItem("select");
+      localStorage.removeItem("selector");
       alert("")
       return {
         ...state,
         ...action.payload,
         login:false,
+        ishidden: false,
         setting:false,
         select:false
       }
@@ -227,7 +210,7 @@ export default {
       return{
         ...state,
         setting:!state.setting
-
+      }},
 //     querySuccess (state, action) {
       
 //             const {list, pagination} = action.payload
@@ -239,15 +222,15 @@ export default {
 //                 ...pagination
 //               }}
 //           },
-//     logoutSuccess(state) {
-//       return {
-//         ...state,
-//         ishidden: false,
-//         login: false,
-      }
+    //   logoutSuccess(state) {
+    //   return { 
+    //            ...state,
+    //      ishidden: false,
+    //      login: false,
+    //   }
 
-    },
-    loginFail(state) {
+    // },
+    loginFail(state,action) {
       // console.log(state,"fail");
       return {
         ...state,
@@ -263,6 +246,7 @@ export default {
         ...state,
         ishidden:true,
         dashhide:true,
+        setting:false,
         // customerId:localStorage.getItem("customerId")
         selectValue:action.payload
       }
@@ -322,7 +306,7 @@ export default {
     handleSignUp(state) {
       return {
         ...state,
-        SignUp: !state.SignUp
+        SignUp:!state.SignUp
       }
     },
     showNavbar(state) {
