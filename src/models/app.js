@@ -57,7 +57,6 @@ export default {
       if(data.data){
          body=data.data.module;
          localStorage.setItem("modules",JSON.stringify(body));
-         localStorage.setItem("customerId",JSON.stringify(data.data._id));
        }
       if (data.success) {
        console.log("if")  
