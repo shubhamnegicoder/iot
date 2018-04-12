@@ -129,46 +129,37 @@ class list extends React.Component {
       title: 'Serial No.',
       dataIndex: 'serialNo',
       key: 'serialNo',
-      width: '10%'
+      width: '20%'
     }, {
       title: 'Device Id',
       dataIndex: 'deviceId',
-      width: '10%',
+      width: '20%',
       key: 'deviceId'
     }, {
       title: 'Device Type',
       dataIndex: 'deviceType',
-      width: '10%',
+      width: '20%',
       key: 'deviceType'
     }, {
       title: 'Device Name',
       dataIndex: 'deviceName',
-      width: '10%',
+      width: '20%',
       key: 'deviceName'
     }, {
       title: 'Asset Id',
       dataIndex: 'assetId',
-      width: '10%',
+      width: '20%',
       key: 'assetId'
-    }, {
-      title: 'Region Name',
-      dataIndex: 'regionName',
-      width: '10%',
-      key: 'regionName'
-    }, {
-      title: 'Branch Name',
-      dataIndex: 'branchName',
-      width: '10%',
-      key: 'branchName'
-    }, {
+    }, 
+     {
       title: 'Status',
       dataIndex: 'status',
-      width: '10%',
+      width: '20%',
       key:'status'
     }, {
       title: 'Operation',
       key: 'operation',
-      width: '10%',
+      width: '20%',
       render: (text, record) => {
          return (<Dropdown overlay={<Menu onClick={this.handleMenuClick.bind(null, record)}>
            <Menu.Item key='1'>Edit</Menu.Item>
@@ -189,7 +180,7 @@ class list extends React.Component {
           columns={columns}
           dataSource={dataSource}
           loading={loading}
-          onChange={::this.pageChange}
+          onChange={this.pageChange}
           pagination={pagination} simple
           rowKey={record => record._id}
           getBodyWrapper={this.getBodyWrapper}

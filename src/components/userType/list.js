@@ -126,10 +126,10 @@ class list extends React.Component {
 
      const columns = [
     {
-      title: 'User Type',
-      dataIndex: 'userType',
+      title: 'Role',
+      dataIndex: 'role',
       width: '10%',
-      key: 'userType'
+      key: 'role'
     }, {
       title: 'Operation',
       key: 'operation',

@@ -44,7 +44,7 @@ export default {
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
       if (data) {
-        console.log("get data", data)
+        console.log("role dataaaaaaaaaaaa", data)
         yield put({
           type: 'querySuccess',
           payload: {
@@ -79,15 +79,16 @@ export default {
     *create ({ payload }, { call, put }) {
       yield put({ type: 'hideModal' })
       yield put({ type: 'showLoading' })
-      // console.log('====',payload)
       const data = yield call(create, payload)
-      const data2 = yield call(query, parse(payload))
+      // const data2 = yield call(query, parse(payload))
+      // console.log(data,"llllllllllllllllll")
       if (data && data.success) {
-        //console.log('====',data2)
+        // console.log('====gggggggggggggggg',data2)
+        
         yield put({ type: 'showLoading' })
         const data = yield call(query, parse(payload))
         if (data) {
-
+            // console.log(data,"hhhhhhhhhhhhhhhhhhhhhhh")
           yield put({
             type: 'querySuccess',
             payload: {
@@ -104,12 +105,9 @@ export default {
       yield put({ type: 'hideModal' })
       yield put({ type: 'showLoading' })
 
-      const id = yield select(({ userType }) => userType.currentItem._id)
+      const id = yield select(({ role }) => role.currentItem._id)
       const newUser = { ...payload, id }
-      //newUser._id = userType.currentItem._id;
 
-      //newUser._id = ({ userType }) => userType.currentItem._id;
-      //console.log(newUser,'userType');
       const data = yield call(update, newUser)
       if (data && data.success) {
         yield put({ type: 'showLoading' })

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import superagent from 'superagent';
 import {BASE_URL, CLIENT_ID} from '../../CommonMethods/api';
 
-console.log(CLIENT_ID,"map customer")
+
 
 const style = {
   width: '100%',
@@ -32,7 +32,7 @@ export default class IotMap extends Component {
     superagent
     .get(this.props.all_device_api)
     .end((err, response) => {
-      console.log(response,"map");
+     
       if (response !== undefined) {
         this.setState({allDeviceData: response.body.data})
       }

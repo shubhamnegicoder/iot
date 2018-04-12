@@ -7,8 +7,12 @@ import find from 'lodash/find';
 const topMenus = menu.map(item => item.key)
 console.log(topMenus, "top");
 var childs = [];
-const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden,parentPath,len) 
-{  
+
+
+
+const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden,parentPath) 
+{ 
+
   parentPath = parentPath||'/'
  if(setting)
  {
@@ -23,6 +27,7 @@ const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden
           
         if (element.child) 
         {
+
 // const getMenus = function (menuArray, siderFold, modules, parentPath) {
 //   // console.log(menuArray, "modarrayyyyyy");
 //   // console.log(modules, "module");
@@ -34,6 +39,7 @@ const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden
 //       if (item.key == modules[i].name.toLowerCase()) {
 
 //         if (item.child) {
+
 
           return (
             <Menu.SubMenu
@@ -47,10 +53,12 @@ const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden
                     : element.name
                 } </span>}>
               {/* {console.log(item.key, "item")} */}
-              {getMenus(element.child, siderFold, modules,selector,setting,null, parentPath + element.key + '/',0)}
+              {getMenus(element.child, siderFold, modules,selector,setting,null, parentPath + element.key + '/',)}
             </Menu.SubMenu>
           )
         } else {
+
+
           return (
             <Menu.Item key={element.key}>
 
@@ -74,9 +82,6 @@ const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden
 
       else if (element.key=="dashboard")
       {
-      
-//       else {
-        // console.log("false");
         return (
           <Menu.Item key={element.key}>
             <Link to={parentPath + element.key}>
@@ -102,13 +107,13 @@ const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden
       for(var i=0;i<modules.length;i++)
       { 
         if ((item.key == modules[i].name.toLowerCase()) && (item.key !== "user") && (item.key !=="user_type") && (item.key !== "customer")||(item.key=="dashboard") ) 
+
       {   
         if (item.child) 
         { childs.length=0;
           item.child.map((item)=>{
              childs.push(item);
             })
-         
           return (
             <Menu.SubMenu
               key={item.key}
@@ -124,6 +129,7 @@ const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden
               {getMenus(item.child,siderFold,modules,selector,setting,ishidden, parentPath +item.key + '/')}
             </Menu.SubMenu>
           )
+
         } else{
           return (
             <Menu.Item key={item.key}>
@@ -254,7 +260,7 @@ function Menus({
 }) {
 
  
-  var menuItems = getMenus(menu, siderFold, modules,selector,setting,ishidden,length=0);
+  var menuItems = getMenus(menu, siderFold, modules,selector,setting,ishidden);
   const onOpenChange = (openKeys)=>{
 
   // console.log(getMenus(menu, siderFold, modules), "func");

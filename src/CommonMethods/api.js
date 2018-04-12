@@ -32,9 +32,10 @@ apiFunc.getBranchList = () =>{
          .query({clientId: 131})
 }
 apiFunc.getUserTypeList = () => {
+  const  id=localStorage.getItem("_id");
      return superagent
-       .get(BASE_URL+'/allUserType')
-       .query({clientId: 131})
+       .get(BASE_URL+'/allRole')
+       .query({_id:id})
 }
 apiFunc.getAsset=()=>{
   const CLIENT_ID = localStorage.getItem("customerId");

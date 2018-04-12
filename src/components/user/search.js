@@ -32,8 +32,10 @@ const search = ({
       <Col lg={8} md={12} sm={16} xs={24} style={{marginBottom: 16}}>
         <SearchGroup {...searchGroupProps} />
       </Col>
-      <Col lg={{offset: 8, span: 8}} md={12} sm={8} xs={24} style={{marginBottom: 16, textAlign: 'right'}}>
+      <Col lg={{offset: 10, span: 10}} md={16} sm={6} xs={24} style={{marginBottom: 16, textAlign: 'right'}}>
         <Button size='large' type='ghost' onClick={onAdd}>Add User</Button>
+        <Button size='large' type='ghost' >Assign Customer</Button>
+        <Button size='large' type='ghost' >Map Location</Button>
       </Col>
     </Row>
   )

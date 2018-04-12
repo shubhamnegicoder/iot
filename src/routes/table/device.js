@@ -16,9 +16,11 @@ function Device({location, dispatch, device}) {
     pagination,
     currentItem,
     modalVisible,
+    modules,
     dropdown,
     modalType
   } = device
+  console.log(device,"kyo nhi aa rha")
   async function getallasset() {
     var a= await apiFunc.getAsset();
     console.log(a,"asset data in device")
@@ -30,6 +32,7 @@ function Device({location, dispatch, device}) {
   const userModalProps = {
     id,
     customerId,
+    modules,
     item: modalType === 'create'
       ? {}
       : currentItem,
@@ -77,6 +80,7 @@ console.log(userListProps,"list")
   const userSearchProps = {
     field,
     keyword,
+    modules,
     onSearch(fieldsValue) {
       fieldsValue.keyword.length
         ? dispatch(routerRedux.push({
@@ -89,6 +93,7 @@ console.log(userListProps,"list")
         : dispatch(routerRedux.push({pathname: '/device'}))
     },
     onAdd() {
+
       dispatch({
         type: 'device/showModal',
         payload: {

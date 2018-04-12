@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react'
 import { Form, Button, Row, Col } from 'antd'
 import SearchGroup from '../ui/search'
-
+var a=false;
 const search = ({
   field,
   keyword,
   onSearch,
   onAdd,
+  modules,
   form: {
     getFieldDecorator,
     validateFields,
@@ -26,14 +27,19 @@ const search = ({
       onSearch(value)
     }
   }
-
+  console.log(modules,"device stateeeeeeeeeeeeeeeeS")
+   var permission= modules[1].permission[1];
+   if(permission=="POST"){
+    a=true;
+   }
+   console.log(a,"kkkkk")
   return (
     <Row gutter={24}>
       <Col lg={8} md={12} sm={16} xs={24} style={{marginBottom: 16}}>
         <SearchGroup {...searchGroupProps} />
       </Col>
       <Col lg={{offset: 8, span: 8}} md={12} sm={8} xs={24} style={{marginBottom: 16, textAlign: 'right'}}>
-        <Button size='large' type='ghost' onClick={onAdd}>Add Device</Button>
+        {a?<Button size='large' type='ghost' onClick={onAdd}>Add Device</Button>:<div></div>}
       </Col>
     </Row>
   )

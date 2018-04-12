@@ -51,32 +51,33 @@ const modal = ({
       const data = {
         ...getFieldsValue()
       }
-      var formdata=[];
-      var modules=[];
-      var permission=[];
-       for(var key in data )
-       {  console.log([key],"key",data[key])
-         if([key]="userType")
-           {
+    console.log(data,"ja kya rha")
+      // var formdata=[];
+      // var modules=[];
+      // var permission=[];
+      //  for(var key in data )
+      //  {  console.log([key],"key",data[key])
+      //    if([key]="userType")
+      //      {
          
-             formdata.push({"role":data[key]})
-           }
-         if (([key] =="Asset" && data[key]==true) || ([key] == "Device" && data[key] == true) || ([key] == "User" && data[key] == true) || ([key] == "Customer"&& data[key] == true))
-           {    console.log("heelo",[key])
-             modules.push({"name":data[key]})
-             if([key]=="Asset")
-             {
-                for(var key in data)
-                {
-                  if (([key] == "AGET" && data[key] ==true) || ([key] == "APUT" && data[key]==true) || ([key] == "ADELETE" && data[key] == true) || ([key] == "APOST" && data[key] == true))
-                  {
-                    console.log("suCSESS")
-                  }
-                }
-             }
-           }
+      //        formdata.push({"role":data[key]})
+      //      }
+      //    if (([key] =="Asset" && data[key]==true) || ([key] == "Device" && data[key] == true) || ([key] == "User" && data[key] == true) || ([key] == "Customer"&& data[key] == true))
+      //      {    console.log("heelo",[key])
+      //        modules.push({"name":data[key]})
+      //        if([key]=="Asset")
+      //        {
+      //           for(var key in data)
+      //           {
+      //             if (([key] == "AGET" && data[key] ==true) || ([key] == "APUT" && data[key]==true) || ([key] == "ADELETE" && data[key] == true) || ([key] == "APOST" && data[key] == true))
+      //             {
+      //               console.log("suCSESS")
+      //             }
+      //           }
+      //        }
+      //      }
           
-        }
+      //   }
       onOk(data)
     })
    
@@ -104,7 +105,7 @@ const modal = ({
     >
       {
         getFieldDecorator(name,
-        {      
+        {
          })(<input type="checkbox" />)
       }
     </FormItem>
@@ -128,24 +129,24 @@ const modal = ({
     <LocaleProvider locale={enUS}>
       <Modal {...modalOpts} style={{height:'400px',marginTop:'-150px'}}>
         <Form horizontal>
-          {/* <FormItem style={displayNone} label='_id' hasFeedback {...formItemLayout}>
+          <FormItem style={displayNone} label='_id' hasFeedback {...formItemLayout}>
             {getFieldDecorator('_id', {
-              initialValue: item._id,
+              initialValue:(localStorage.getItem("_id")),
             })(<Input/>)}
-          </FormItem> */}
+          </FormItem>
           {/* <FormItem style={displayNone} label='clientId' hasFeedback {...formItemLayout}>
             {getFieldDecorator('clientId', {
               initialValue: 131,
             })(<Input/>)}
           </FormItem> */}
           
-          <FormItem label='User Type'>
-            {getFieldDecorator('userType', {
-              initialValue: item.userType,
+          <FormItem label='Role'>
+            {getFieldDecorator('role', {
+              initialValue: item.role,
               rules: [
                 {
                   required: true,
-                  message: 'User Type is required'
+                  message: 'role is required'
                 }
               ]
             })(<Input/>)}

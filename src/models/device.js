@@ -12,6 +12,7 @@ export default {
     customerId:localStorage.getItem("customerId"),
     loading: false,
     currentItem: {},
+    modules:JSON.parse(localStorage.getItem("modules")),
     modalVisible: false,
     modalType: 'create',
     pagination: {
@@ -24,6 +25,7 @@ export default {
   },
 
   subscriptions: {
+
     setup ({ dispatch, history }) {
       history.listen(location => {
         if (location.pathname === '/device') {
@@ -129,6 +131,7 @@ export default {
       return { ...state,
         list,
         loading: false,
+        modules:JSON.parse(localStorage.getItem("modules")),
         pagination: {
           ...state.pagination,
           ...pagination

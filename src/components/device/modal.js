@@ -38,7 +38,7 @@ const modal = ({
     getFieldsValue
   }
 }) => {
-  console.log(customerId,"dekhoooooooooo");
+ 
   function handleOk() {
     validateFields((errors) => {
       if (errors) {

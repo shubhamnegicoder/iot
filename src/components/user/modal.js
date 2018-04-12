@@ -65,7 +65,7 @@ const modal = ({
         <Form horizontal>
           <FormItem style={displayNone} label='_id' hasFeedback {...formItemLayout}>
             {getFieldDecorator('_id', {
-              initialValue: item._id,
+              initialValue:(localStorage.getItem("_id")),
             })(<Input/>)}
           </FormItem>
           <FormItem style={displayNone} label='clientId' hasFeedback {...formItemLayout}>
@@ -106,34 +106,80 @@ const modal = ({
               ]
             })(type === "update" ? <Input disabled={true} /> : <Input placeholder="Enter User Name" />)}
           </FormItem>
-          <FormItem label='User Type' hasFeedback {...formItemLayout}>
-             {getFieldDecorator('userTypeId', {
-               initialValue: item.userTypeId,
+          <FormItem label='Role' hasFeedback {...formItemLayout}>
+             {getFieldDecorator('roleId', {
+               initialValue: item.roleId,
                rules: [
                    {
                        required: true,
-                       message: 'User Type is required'
+                       message: 'role id is required'
                    }
                ]
-             })(type==="update"?<Select placeholder="Select User Type" disabled ={true}>
+             })(type==="update"?<Select placeholder="Select  Role" disabled ={true}>
                 {
                   dropDownData.map((item, index) => {
-                    return <Select.Option value={item.userTypeId} key={item._id}>
-                        {item.userType}
+                    return <Select.Option value={item.roleId} key={item._id}>
+                        {item.role}
                       </Select.Option>
                   })
                 }
-             </Select> : <Select placeholder="Select User Type" >
+             </Select> : <Select placeholder="Select Role" >
                  {
                    dropDownData.map((item, index) => {
-                     return <Select.Option value={item.userTypeId} key={item._id}>
-                       {item.userType}
+                     return <Select.Option value={item.roleId} key={item._id}>
+                       {item.role}
                      </Select.Option>
                    })
                  }
                </Select>
              )}
           </FormItem>
+         
+          <FormItem label='Address' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('address', {
+              initialValue: item.address,
+              rules: [
+                {
+                  required: true,
+                  message: 'Address is required'
+                }
+              ]
+            })(type === "update" ? <Input disabled={true} /> : <Input placeholder="Enter Address" />)}
+          </FormItem>
+          <FormItem label='city' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('city', {
+              initialValue: item.city,
+              rules: [
+                {
+                  required: true,
+                  message: 'city is required'
+                }
+              ]
+            })(type === "update" ? <Input disabled={true} /> : <Input placeholder="Enter city" />)}
+          </FormItem>
+          <FormItem label='state' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('state', {
+              initialValue: item.state,
+              rules: [
+                {
+                  required: true,
+                  message: 'state is required'
+                }
+              ]
+            })(type === "update" ? <Input disabled={true} /> : <Input placeholder="Enter state" />)}
+          </FormItem>
+          <FormItem label='country' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('country', {
+              initialValue: item.country,
+              rules: [
+                {
+                  required: true,
+                  message: 'country is required'
+                }
+              ]
+            })(type === "update" ? <Input disabled={true} /> : <Input placeholder="Enter country" />)}
+          </FormItem>
+          
           <FormItem label="Status" {...formItemLayout}>
              {getFieldDecorator('status', {
                initialValue: item.status,
