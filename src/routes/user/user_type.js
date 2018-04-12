@@ -15,11 +15,12 @@ function UserType({location, dispatch, userType}) {
     modalVisible,
     modalType,
     modules,
-    checked
+    checked,
+    showmodel
   }=userType
   const {field, keyword} = location.query
-
-  const userModalProps = {
+    console.log("modules",userType)
+  const userModalProps ={
     modules,
     checked,
     item: modalType === 'create'
@@ -99,7 +100,6 @@ function UserType({location, dispatch, userType}) {
           <UserList {...userListProps}/>
           <UserModalGen/>
         </Col>
-
       </Row>
 
     </div>

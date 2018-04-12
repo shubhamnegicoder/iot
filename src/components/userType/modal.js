@@ -153,7 +153,7 @@ const modal = ({
           <h6><b>Permissions:</b></h6>
              {
                modules.map((item)=> 
-             {
+             {console.log("hello")
                 var items=[];
               if(item.name=="Asset")
               {

@@ -6,25 +6,23 @@ import find from 'lodash/find';
 
 const topMenus = menu.map(item => item.key)
 console.log(topMenus, "top");
-const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden,parentPath) 
-{ console.log("err",menuArray);
-console.log(selector,"select");
-console.log(modules,"modules");
+var childs = [];
+const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden,parentPath,len) 
+{  
   parentPath = parentPath||'/'
  if(setting)
  {
   if(selector)
   {
     return menuArray.map(element => 
-      { console.log(element,"elly")
+      { 
        for(var i=0;i<modules.length;i++)
        {
          if (element.key =="user" || element.key =="user_type"||element.key=="customer")
         {
-          console.log("sucsess");
+          
         if (element.child) 
         {
-          console.log("suc", element.icon);
 // const getMenus = function (menuArray, siderFold, modules, parentPath) {
 //   // console.log(menuArray, "modarrayyyyyy");
 //   // console.log(modules, "module");
@@ -49,11 +47,10 @@ console.log(modules,"modules");
                     : element.name
                 } </span>}>
               {/* {console.log(item.key, "item")} */}
-              {getMenus(element.child, siderFold, modules,selector,setting,null, parentPath + element.key + '/')}
+              {getMenus(element.child, siderFold, modules,selector,setting,null, parentPath + element.key + '/',0)}
             </Menu.SubMenu>
           )
         } else {
-          console.log("else");
           return (
             <Menu.Item key={element.key}>
 
@@ -77,7 +74,6 @@ console.log(modules,"modules");
 
       else if (element.key=="dashboard")
       {
-        console.log("false");
       
 //       else {
         // console.log("false");
@@ -100,17 +96,19 @@ console.log(modules,"modules");
  }
 }
     else if(ishidden)
-    {
+    { 
       return menuArray.map(item => 
-    {  
+    { 
       for(var i=0;i<modules.length;i++)
-      {
+      { 
         if ((item.key == modules[i].name.toLowerCase()) && (item.key !== "user") && (item.key !=="user_type") && (item.key !== "customer")||(item.key=="dashboard") ) 
-      {
-          console.log("ishidden");
+      {   
         if (item.child) 
-        {
-          console.log("item",item.child);
+        { childs.length=0;
+          item.child.map((item)=>{
+             childs.push(item);
+            })
+         
           return (
             <Menu.SubMenu
               key={item.key}
@@ -126,8 +124,7 @@ console.log(modules,"modules");
               {getMenus(item.child,siderFold,modules,selector,setting,ishidden, parentPath +item.key + '/')}
             </Menu.SubMenu>
           )
-        } else {
-          console.log("else");
+        } else{
           return (
             <Menu.Item key={item.key}>
 
@@ -143,23 +140,28 @@ console.log(modules,"modules");
           )
         }
       }
+      else  {
+        for(var j=0; j<childs.length;j++)
+        {  if(item.key==childs[j].key)
+          {
+          return (
+            <Menu.Item key={item.key}>
 
-      // else {
-      //   console.log("false");
-      //   return (
-      //     <Menu.Item key={item.key}>
-      //       <Link to={parentPath + item.key}>
-      //         {item.icon
-      //           ? <Icon type={item.icon} />
-      //           : ''}
-      //         {siderFold && topMenus.indexOf(item.key) >= 0
-      //           ? ''
-      //           : item.name}
-      //       </Link>
-      //     </Menu.Item>
-      //   )
+              <Link to={parentPath + item.key}>
+                {item.icon
+                  ? <Icon type={item.icon} />
+                  : ''}
+                {siderFold && topMenus.indexOf(item.key) >= 0
+                  ? ''
+                  : item.name}
+              </Link>
+            </Menu.Item>
+          )
+         }
+       }
+      // {getMenus(item.child,siderFold,modules,selector,setting,ishidden, parentPath +item.key + '/',0)}
 
-      // }
+      }
     }
    
     })
@@ -252,8 +254,7 @@ function Menus({
 }) {
 
  
-  var menuItems = getMenus(menu, siderFold, modules,selector,setting,ishidden);
-  console.log(menuItems, "menues");
+  var menuItems = getMenus(menu, siderFold, modules,selector,setting,ishidden,length=0);
   const onOpenChange = (openKeys)=>{
 
   // console.log(getMenus(menu, siderFold, modules), "func");

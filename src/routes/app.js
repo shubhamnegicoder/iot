@@ -22,7 +22,8 @@ import CustomModal from '../components/customer/modal';
 const { Sider, Content } = Layout;
 const FormItem = Form.Item
 var dropDownData=[];
-function App({ children, location, dispatch, app }) {
+function App({ children, location, dispatch, app }) 
+{
   const {
     login,
     loading,
@@ -171,6 +172,7 @@ function App({ children, location, dispatch, app }) {
 
   const userModalProps = {
     id,
+    modules,
     item: modalType === 'create'
       ? {}
       : currentItem,
