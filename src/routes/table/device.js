@@ -16,11 +16,11 @@ function Device({location, dispatch, device}) {
     pagination,
     currentItem,
     modalVisible,
-    modules,
     dropdown,
     modalType
   } = device
-  console.log(device,"kyo nhi aa rha")
+ var modules=JSON.parse(localStorage.getItem("modules"))
+  console.log(modules,"kyo nhi aa rha")
   async function getallasset() {
     var a= await apiFunc.getAsset();
     console.log(a,"asset data in device")

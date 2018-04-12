@@ -40,6 +40,7 @@ export default {
       //console.log('here',payload)
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
+      console.log(data,"userlist")
       if (data) {
 
         yield put({
@@ -75,10 +76,12 @@ export default {
       // console.log('====',payload)
       const data = yield call(create, payload)
       const data2 = yield call(query, parse(payload))
+      console.log(data,"user adddddddd")
       if (data && data.success) {
         //console.log('====',data2)
         yield put({ type: 'showLoading' })
         const data = yield call(query, parse(payload))
+        console.log(data,"bhejo")
         if (data) {
 
           yield put({

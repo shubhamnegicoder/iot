@@ -27,7 +27,7 @@ const search = ({
       onSearch(value)
     }
   }
-  console.log(modules,"device stateeeeeeeeeeeeeeeeS")
+ 
    var permission= modules[1].permission[1];
    if(permission=="POST"){
     a=true;

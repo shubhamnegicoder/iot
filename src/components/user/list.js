@@ -141,10 +141,10 @@ class list extends React.Component {
       width: '10%',
       key: 'name'
     }, {
-      title: 'User Type',
-      dataIndex: 'userType',
+      title: 'role',
+      dataIndex: 'role',
       width: '10%',
-      key: 'userType'
+      key: 'role'
     }, {
       title: 'Status',
       dataIndex: 'status',

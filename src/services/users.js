@@ -1,7 +1,8 @@
 import { request } from '../utils'
 
 export async function query (params) {
-  return request('http://139.59.95.113:8080/allUser?clientId=131', {
+  const id = localStorage.getItem("_id");
+  return request('http://139.59.95.113:8080/allUser?_Id='+id, {
     method: 'get',
     data: params
   })

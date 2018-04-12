@@ -57,6 +57,9 @@ export default {
         })
 
       }
+      else{
+        alert("")
+      }
     },
     *'delete' ({ payload }, { call, put }) {
       yield put({ type: 'showLoading' })
@@ -113,7 +116,8 @@ export default {
             type: 'querySuccess',
             payload: {
               list: data.data,
-              pagination: data.page
+              pagination: data.page,
+              modules:JSON.parse(localStorage.getItem("modules"))
             }
           })
         }
@@ -127,11 +131,11 @@ export default {
     },
     querySuccess (state, action) {
 
-      const {list, pagination} = action.payload
+      const {list, pagination,modules} = action.payload
       return { ...state,
         list,
         loading: false,
-        modules:JSON.parse(localStorage.getItem("modules")),
+        modules,
         pagination: {
           ...state.pagination,
           ...pagination
