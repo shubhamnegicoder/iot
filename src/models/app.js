@@ -54,6 +54,7 @@ export default {
     *login({ payload }, {call, put}) {
       yield put({type: 'showLoginButtonLoading'})
       const data = yield call(login, parse(payload))
+      console.log(data,"login data")
       var body=[];
       if(data.data){
          body=data.data.module;
@@ -192,7 +193,7 @@ export default {
         }
     },
     logoutSuccess(state,action) {
-      // localStorage.removeItem("selector");
+      localStorage.removeItem("dropDownData");
       alert("")
       return {
         ...state,
@@ -201,6 +202,7 @@ export default {
         ishidden: false,
         setting:false,
         select:false
+
       }
     },
     set(state){

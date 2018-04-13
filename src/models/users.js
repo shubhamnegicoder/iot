@@ -8,6 +8,8 @@ export default {
   state: {
     list: [],
     dropDownData: [],
+    dropDownData2:[],
+    selected:[],
     loading: false,
     currentItem: {},
     modalVisible: false,
@@ -24,7 +26,7 @@ export default {
   subscriptions: {
     setup ({ dispatch, history }) {
       history.listen(location => {
-        if (location.pathname === '/user/users') {
+        if (location.pathname === '/user/user') {
           dispatch({
             type: 'query',
             payload:location.query
@@ -38,6 +40,7 @@ export default {
 
     *query ({ payload }, { call, put }) {
       //console.log('here',payload)
+      alert("");
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
       console.log(data,"userlist")
