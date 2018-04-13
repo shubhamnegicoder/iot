@@ -11,6 +11,8 @@ function Users({location, dispatch, users}) {
   const {
     loading,
     dropDownData,
+    dropDownData2,
+    selected,
     list,
     pagination,
     currentItem,
@@ -25,12 +27,19 @@ function Users({location, dispatch, users}) {
   }
   userType();
 
+  async function  customerList(){
+    var a = await apiFunc.getCustomerList()
+    users.dropDownData2 = a.body.data;
+  }
+  customerList();
+
   const userModalProps = {
     item: modalType === 'create'
       ? {}
       : currentItem,
     type: modalType,
     dropDownData: dropDownData,
+    selected,
     visible: modalVisible,
     onOk(data) {
       dispatch({type: `users/${modalType}`, payload: data})

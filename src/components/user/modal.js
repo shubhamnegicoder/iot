@@ -1,4 +1,6 @@
 import React, {PropTypes} from 'react'
+import Drop from 'react-select';
+import Dropdown from 'react-dropdown-multiselect'
 import {
   Form,
   Input,
@@ -11,7 +13,7 @@ import {
 import enUS from 'antd/lib/locale-provider/en_US';
 
 const FormItem = Form.Item
-
+const Option=Select.Option;
 const formItemLayout = {
   labelCol: {
     span: 6
@@ -23,11 +25,24 @@ const formItemLayout = {
 const displayNone = {
   display: "none"
 }
+var options1=[];
+var options=[];
+const datavalue = JSON.parse(localStorage.getItem("dropDownData"));
+datavalue.map((item)=>{
+  options1.push({"value":item._id,"label":item.customerName})
+})
+options1.map((item)=>{
+  console.log("item",item)
+options.push(<Option key={item.value}>{item.label}</Option>);
+})
+
 const modal = ({
   visible,
   type,
   item = {},
   dropDownData,
+  dropDownData2,
+  selected,
   onOk,
   onCancel,
   form: {
@@ -58,7 +73,15 @@ const modal = ({
     onCancel,
     wrapClassName: 'vertical-center-modal'
   }
-
+ var onok=(e)=>{
+    console.log('You selected', e)
+    selected=[];
+  e.map((item)=>{
+    selected.push(item.value)
+  })
+    console.log(selected,"select state value");
+  }
+  let defaultOption = selected
   return (
     <LocaleProvider locale={enUS}>
       <Modal {...modalOpts}>
@@ -118,7 +141,7 @@ const modal = ({
              })(type==="update"?<Select placeholder="Select  Role" disabled ={true}>
                 {
                   dropDownData.map((item, index) => {
-                    return <Select.Option value={item.roleId} key={item._id}>
+                    return <Select.Option value={item._id} key={item._id}>
                         {item.role}
                       </Select.Option>
                   })
@@ -126,7 +149,7 @@ const modal = ({
              </Select> : <Select placeholder="Select Role" >
                  {
                    dropDownData.map((item, index) => {
-                     return <Select.Option value={item.roleId} key={item._id}>
+                     return <Select.Option value={item._id} key={item._id}>
                        {item.role}
                      </Select.Option>
                    })
@@ -134,7 +157,21 @@ const modal = ({
                </Select>
              )}
           </FormItem>
-         
+          <FormItem label="Assign customer" {...formItemLayout}>
+             {getFieldDecorator('customer', {
+               rules: [
+                   {
+                       required: true,
+                       message: 'Please select customer!'
+                   }
+               ]
+             })
+             (
+             <Select mode="multiple" style={{width:"100%"}}options={options} style={{Select:"200px"}} onChange={(e)=>{onok(e)}}   placeholder="Select an option" >
+               {options}
+             </Select>
+             )}
+          </FormItem>
           <FormItem label='Address' hasFeedback {...formItemLayout}>
             {getFieldDecorator('address', {
               initialValue: item.address,
@@ -195,6 +232,8 @@ const modal = ({
                 </Select>
              )}
           </FormItem>
+          
+          
         </Form>
       </Modal>
     </LocaleProvider>
