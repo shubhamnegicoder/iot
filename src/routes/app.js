@@ -205,7 +205,6 @@ function App({ children, location, dispatch, app })
     var data2= await apiFunc.getCustomerList();
     // console.log(data2.body.data,"finjdfvndj");
     app.dropDownData=data2.body.data;
-    localStorage.setItem("dropDownData",JSON.stringify(app.dropDownData));
    }
 
    customer();
@@ -252,9 +251,7 @@ function App({ children, location, dispatch, app })
    }
 
   if (login || (config.needLogin()==false)) {
-
-      // console.log(app,"states app");
-      // console.log(config.needLogin(),"config");
+    localStorage.setItem("dropDownData", JSON.stringify(app.dropDownData));
     return (
       <div
         className={classnames(styles.layout, { [styles.fold]: isNavbar ? false : siderFold  }, {  [styles.withnavbar]: isNavbar  })}>

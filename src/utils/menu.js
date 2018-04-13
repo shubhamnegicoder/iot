@@ -42,7 +42,7 @@ module.exports = [
         clickable: false,
         child: [
             {
-                key: 'user',
+                key: 'users',
                 name: 'User'
             },
             {

@@ -8,6 +8,7 @@ export default {
   namespace : 'app',
   state : {
     ishidden:false,
+    id:localStorage.getItem("_id"),
     dashhide:false,
     dropDownData:JSON.parse(localStorage.getItem("dropDownData")||"[]"),
     selectValue:"",
@@ -246,7 +247,7 @@ export default {
         ishidden:true,
         dashhide:true,
         setting:false,
-        // customerId:localStorage.getItem("customerId")
+        customerId:localStorage.getItem("customerId"),
         selectValue:action.payload
       }
     },
