@@ -11,97 +11,168 @@ var childs = [];
 
 
 const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden,parentPath) 
-{ 
+{  console.log(childs,"array")
 
   parentPath = parentPath||'/'
  if(setting)
  {
   if(selector)
   {
-    return menuArray.map(element => 
-      { 
-       for(var i=0;i<modules.length;i++)
-       {
-         if (element.key =="user" || element.key =="user_type"||element.key=="customer")
-        {
-          
-        if (element.child) 
-        {
+      console.log("selector")
+    return menuArray.map(item => {
+      for (var i = 0; i < modules.length; i++) {
+        console.log(item,"item")
+        if ((item.key == modules[i].name.toLowerCase()) && (item.key !== "asset") && (item.key !== "device") && (item.key !== "customer") || (item.key == "dashboard")) 
+        { console.log("itemkey",item.key)
+          if (item.child) {
+          childs.length = 0;
+            item.child.map((item) => {
+              childs.push(item);
+            })
+            return (
+              <Menu.SubMenu
+                key={item.key}
+                title={<span> {
+                  item.icon ? <Icon type={item.icon} /> : ''
+                }
+                  {
+                    siderFold && topMenus.indexOf(item.key) >= 0
+                      ? ''
+                      : item.name
+                  } </span>}>
+                {/* {console.log(item.key, "item")} */}
+                {getMenus(item.child, siderFold, modules, selector, setting, ishidden, parentPath + item.key + '/')}
+              </Menu.SubMenu>
+            )
 
-// const getMenus = function (menuArray, siderFold, modules, parentPath) {
-//   // console.log(menuArray, "modarrayyyyyy");
-//   // console.log(modules, "module");
-//   parentPath = parentPath || '/'
-//   return menuArray.map(item => {
+          } else {
+            return (
+              <Menu.Item key={item.key}>
 
-//       for(var i=0;i<modules.length;i++)
-//       {
-//       if (item.key == modules[i].name.toLowerCase()) {
-
-//         if (item.child) {
-
-
-          return (
-            <Menu.SubMenu
-              key={element.key}
-              title={<span> {
-                element.icon ? <Icon type={element.icon} /> : ''
-              }
-                {
-                  siderFold && topMenus.indexOf(element.key) >= 0
+                <Link to={parentPath + item.key}>
+                  {item.icon
+                    ? <Icon type={item.icon} />
+                    : ''}
+                  {siderFold && topMenus.indexOf(item.key) >= 0
                     ? ''
-                    : element.name
-                } </span>}>
-              {/* {console.log(item.key, "item")} */}
-              {getMenus(element.child, siderFold, modules,selector,setting,null, parentPath + element.key + '/',)}
-            </Menu.SubMenu>
-          )
-        } else {
+                    : item.name}
+                </Link>
+              </Menu.Item>
+            )
+          }
+        }
+        else {
+          console.log("else")
+          for (var j = 0; j < childs.length; j++) {
+            if (item.key == childs[j].key) {
+              console.log("item.key",item.key,childs[j].key)
+              return (
+                <Menu.Item key={item.key}>
 
+                  <Link to={parentPath + item.key}>
+                    {item.icon
+                      ? <Icon type={item.icon} />
+                      : ''}
+                    {siderFold && topMenus.indexOf(item.key) >= 0
+                      ? ''
+                      : item.name}
+                  </Link>
+                </Menu.Item>
+              )
+            }
+          }
+          // {getMenus(item.child,siderFold,modules,selector,setting,ishidden, parentPath +item.key + '/',0)}
 
-          return (
-            <Menu.Item key={element.key}>
-
-              <Link to={parentPath + element.key}>
-                {element.icon
-                  ? <Icon type={element.icon} />
-//             <Menu.Item key={item.key}>
-//                  {/* {console.log(item.key, "item")} */}
-//               <Link to={parentPath + item.key}>
-//                 {item.icon
-//                   ? <Icon type={item.icon} />
-                  : ''}
-                {siderFold && topMenus.indexOf(element.key) >= 0
-                  ? ''
-                  : element.name}
-              </Link>
-            </Menu.Item>
-          )
         }
       }
 
-      else if (element.key=="dashboard")
-      {
-        return (
-          <Menu.Item key={element.key}>
-            <Link to={parentPath + element.key}>
-              {element.icon
-                ? <Icon type={element.icon} />
-                : ''}
-              {siderFold && topMenus.indexOf(element.key) >= 0
-                ? ''
-                : element.name}
-            </Link>
-          </Menu.Item>
-         )
-        }
-      }
+    })
+
+//     return menuArray.map(element => 
+//       { 
+//        for(var i=0;i<modules.length;i++)
+//        {
+//          if ((element.key ==modules[i].name.toLowerCase())&&(modules[i].name.toLowerCase()=="user")|| element.key =="user_type"||element.key=="customer")
+//         {
+          
+//         if (element.child) 
+//         {
+
+// // const getMenus = function (menuArray, siderFold, modules, parentPath) {
+// //   // console.log(menuArray, "modarrayyyyyy");
+// //   // console.log(modules, "module");
+// //   parentPath = parentPath || '/'
+// //   return menuArray.map(item => {
+
+// //       for(var i=0;i<modules.length;i++)
+// //       {
+// //       if (item.key == modules[i].name.toLowerCase()) {
+
+// //         if (item.child) {
+
+
+//           return (
+//             <Menu.SubMenu
+//               key={element.key}
+//               title={<span> {
+//                 element.icon ? <Icon type={element.icon} /> : ''
+//               }
+//                 {
+//                   siderFold && topMenus.indexOf(element.key) >= 0
+//                     ? ''
+//                     : element.name
+//                 } </span>}>
+//               {/* {console.log(item.key, "item")} */}
+//               {getMenus(element.child, siderFold, modules,selector,setting,null, parentPath + element.key + '/',)}
+//             </Menu.SubMenu>
+//           )
+//         } else {
+
+
+//           return (
+//             <Menu.Item key={element.key}>
+
+//               <Link to={parentPath + element.key}>
+//                 {element.icon
+//                   ? <Icon type={element.icon} />
+// //             <Menu.Item key={item.key}>
+// //                  {/* {console.log(item.key, "item")} */}
+// //               <Link to={parentPath + item.key}>
+// //                 {item.icon
+// //                   ? <Icon type={item.icon} />
+//                   : ''}
+//                 {siderFold && topMenus.indexOf(element.key) >= 0
+//                   ? ''
+//                   : element.name}
+//               </Link>
+//             </Menu.Item>
+//           )
+//         }
+//       }
+
+//       else if (element.key=="dashboard")
+//       {
+//         return (
+//           <Menu.Item key={element.key}>
+//             <Link to={parentPath + element.key}>
+//               {element.icon
+//                 ? <Icon type={element.icon} />
+//                 : ''}
+//               {siderFold && topMenus.indexOf(element.key) >= 0
+//                 ? ''
+//                 : element.name}
+//             </Link>
+//           </Menu.Item>
+//          )
+//         }
+//       }
+  
     
-  })
+  
  }
 }
     else if(ishidden)
-    { 
+    {  console.log("ishidden")
       return menuArray.map(item => 
     { 
       for(var i=0;i<modules.length;i++)

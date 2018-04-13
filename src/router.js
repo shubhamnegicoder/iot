@@ -61,7 +61,7 @@ export default function ({history,app}) {
                     }
                 },
                 {
-                    path: 'user/user',
+                    path: 'user/users',
                     name: 'users/user',
                     getComponent(nextState, cb) {
                         require.ensure([], require => {
