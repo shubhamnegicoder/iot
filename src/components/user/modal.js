@@ -61,6 +61,7 @@ const modal = ({
         key: item.key
       }
       onOk(data)
+      console.log(data,"da")
     })
   }
 
@@ -158,7 +159,7 @@ const modal = ({
              )}
           </FormItem>
           <FormItem label="Assign customer" {...formItemLayout}>
-             {getFieldDecorator('customer', {
+             {getFieldDecorator('customerIds', {
                rules: [
                    {
                        required: true,

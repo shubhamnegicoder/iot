@@ -203,12 +203,7 @@ function App({ children, location, dispatch, app })
   //  console.log(selectValue,"selectstate");
   async function customer(){
     var data2= await apiFunc.getCustomerList();
-    // console.log(data2.body.data,"finjdfvndj");
     app.dropDownData=data2.body.data;
-<<<<<<< Updated upstream
-=======
-    // localStorage.setItem("dropDownData",JSON.stringify(app.dropDownData));
->>>>>>> Stashed changes
    }
 
    customer();
@@ -273,7 +268,7 @@ function App({ children, location, dispatch, app })
                     ( <Select  placeholder="Select customer" onChange={(e)=>{handleok(e)}} >
 
                       {
-                           app.dropDownData && app.dropDownData.length && app.dropDownData.map((item,index)=>{
+                           app.dropDownData.map((item,index)=>{
 
                         return <Select.Option name={item.customerName} value={item._id} key = {index}><Link to='dashboard'>{item.customerName}</Link></Select.Option>
                       })}
