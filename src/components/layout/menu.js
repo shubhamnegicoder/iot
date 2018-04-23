@@ -5,25 +5,27 @@ import { menu } from '../../utils'
 import find from 'lodash/find';
 
 const topMenus = menu.map(item => item.key)
-console.log(topMenus, "top");
+// console.log(topMenus, "top");
 var childs = [];
 
 
 
 const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden,parentPath) 
-{  console.log(childs,"array")
+{  
+  // console.log(childs,"array")
 
   parentPath = parentPath||'/'
  if(setting)
  {
   if(selector)
   {
-      console.log("selector")
+      // console.log("selector")
     return menuArray.map(item => {
       for (var i = 0; i < modules.length; i++) {
-        console.log(item,"item")
+        // console.log(item,"item")
         if ((item.key == modules[i].name.toLowerCase()) && (item.key !== "asset") && (item.key !== "device")  || (item.key == "dashboard")) 
-        { console.log("itemkey",item.key)
+        {
+          //  console.log("itemkey",item.key)
           if (item.child) {
           childs.length = 0;
             item.child.map((item) => {
@@ -62,10 +64,10 @@ const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden
           }
         }
         else {
-          console.log("else")
+          // console.log("else")
           for (var j = 0; j < childs.length; j++) {
             if (item.key == childs[j].key) {
-              console.log("item.key",item.key,childs[j].key)
+              // console.log("item.key",item.key,childs[j].key)
               return (
                 <Menu.Item key={item.key}>
 
@@ -172,7 +174,8 @@ const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden
  }
 }
     else if(ishidden)
-    {  console.log("ishidden")
+    { 
+      //  console.log("ishidden")
       return menuArray.map(item => 
     { 
       for(var i=0;i<modules.length;i++)

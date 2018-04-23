@@ -11,6 +11,7 @@ import {
 } from 'antd'
 import enUS from 'antd/lib/locale-provider/en_US';
 
+
 const FormItem = Form.Item
 
 const formItemLayout = {
@@ -46,11 +47,12 @@ const modal = ({
         ...getFieldsValue(),
        
       }
-      console.log(data,"item");
       onOk(data)
     })
   }
-
+  
+ 
+  
   const modalOpts = {
     title: `${type === 'create'
       ? 'Create New Customer'

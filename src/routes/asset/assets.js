@@ -15,6 +15,7 @@ function Assets({location, dispatch, assets}) {
    customerId,
     dropDownData,
     branchDropDown,
+    modules,
     list,
     pagination,
     currentItem,
@@ -39,6 +40,7 @@ function Assets({location, dispatch, assets}) {
   const userModalProps = {
     id,
     customerId,
+    modules,
     item: modalType === 'create'
       ? {}
       : currentItem,
@@ -56,6 +58,7 @@ function Assets({location, dispatch, assets}) {
 
   const userListProps = {
     dataSource: list,
+     modules,
     loading,
     pagination: pagination,
     onPageChange(page) {
@@ -86,6 +89,7 @@ function Assets({location, dispatch, assets}) {
   const userSearchProps = {
     field,
     keyword,
+    modules,
     onSearch(fieldsValue) {
       fieldsValue.keyword.length
         ? dispatch(routerRedux.push({

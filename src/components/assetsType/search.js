@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react'
 import { Form, Button, Row, Col } from 'antd'
 import SearchGroup from '../ui/search'
+var d=false;
+const modules=JSON.parse(localStorage.getItem("modules"))
 
 const search = ({
   field,
@@ -26,6 +28,17 @@ const search = ({
       onSearch(value)
     }
   }
+  modules.forEach(function(value){
+    if(value.name==="Asset"){
+      value.permission.forEach(function(value){
+        if(value=="POST"){
+         d=true;
+        }
+      })
+     
+    }
+  })
+
 
   return (
     <Row gutter={24}>
@@ -33,7 +46,7 @@ const search = ({
         <SearchGroup {...searchGroupProps} />
       </Col>
       <Col lg={{offset: 8, span: 8}} md={12} sm={8} xs={24} style={{marginBottom: 16, textAlign: 'right'}}>
-        <Button size='large' type='ghost' onClick={onAdd}>Add Assets Type</Button>
+        {d?<Button size='large' type='ghost' onClick={onAdd}>Add Assets Type</Button>:<div></div>}
       </Col>
     </Row>
   )

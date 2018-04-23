@@ -22,6 +22,7 @@ import CustomModal from '../components/customer/modal';
 const { Sider, Content } = Layout;
 const FormItem = Form.Item
 var dropDownData=[];
+var b= false;
 function App({ children, location, dispatch, app }) 
 {
   const {
@@ -178,7 +179,7 @@ function App({ children, location, dispatch, app })
       : currentItem,
     type: modalType,
     visible: modalVisible,
-    onOk(data) {
+    onOk(data){
       dispatch({type: `app/${modalType}`, payload: data})
     },
     onCancel() {
@@ -194,13 +195,9 @@ function App({ children, location, dispatch, app })
        payload:e
      })
      dispatch({type:"dashboard/allUser",payload:{ticket:false}})
-  
-   
-    //  window.location.href='./routes/dashboard_1'
 
    }
 
-  //  console.log(selectValue,"selectstate");
   async function customer(){
     var data2= await apiFunc.getCustomerList();
     app.dropDownData=data2.body.data;
@@ -239,8 +236,8 @@ function App({ children, location, dispatch, app })
       )
     }
   }
-  var onAdd=()=>{
-    
+var onAdd=()=>{
+
      dispatch({
        type: 'app/showModal',
        payload: {
@@ -248,27 +245,37 @@ function App({ children, location, dispatch, app })
        }
      })
    }
+  
+   modules.forEach(function(value){
+     if(value.name==="Customer"){
+       value.permission.forEach(function(value){
+         if(value=="POST"){
+          b=true;
+         }
+       })
+      
+     }
+   })
+   
+  
 
   if (login || (config.needLogin()==false)) {
-    
+
        localStorage.setItem("dropDownData",JSON.stringify(app.dropDownData));
-      // console.log(app,"states app");
-      // console.log(config.needLogin(),"config");
     return (
       <div
         className={classnames(styles.layout, { [styles.fold]: isNavbar ? false : siderFold  }, {  [styles.withnavbar]: isNavbar  })}>
         {!isNavbar  ? <aside
             className={classnames(styles.sider , (menuTheme=="dark") ? styles.dark : menuTheme=="light" ?  styles.light : "menu_"+menuTheme )} >
-            
+
             <div>
-            
                     <Form >
                     <FormItem label='Customer List' hasFeedback {...formItemLayout}>
                     {
                     ( <Select  placeholder="Select customer" onChange={(e)=>{handleok(e)}} >
 
                       {
-                           app.dropDownData.map((item,index)=>{
+                       app.dropDownData  && app.dropDownData.map((item,index)=>{
 
                         return <Select.Option name={item.customerName} value={item._id} key = {index}><Link to='dashboard'>{item.customerName}</Link></Select.Option>
                       })}
@@ -278,7 +285,8 @@ function App({ children, location, dispatch, app })
                 </FormItem>
 
                 <FormItem>
-                   <Button type='primary' size='large' onClick={onAdd}>Add Customer</Button>
+                  {b?<Button type='primary' size='large' onClick={onAdd}>Add Customer</Button>:<div></div>
+                  } 
                 </FormItem>
                   </Form >
                   

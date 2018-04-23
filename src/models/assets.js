@@ -12,6 +12,7 @@ export default {
     customerId:localStorage.getItem("customerId"),
     branchDropDown: [],
     loading: false,
+    modules:JSON.parse(localStorage.getItem("modules")),
     currentItem: {},
     modalVisible: false,
     modalType: 'create',

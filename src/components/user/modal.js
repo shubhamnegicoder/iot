@@ -32,7 +32,6 @@ datavalue.map((item)=>{
   options1.push({"value":item._id,"label":item.customerName})
 })
 options1.map((item)=>{
-  console.log("item",item)
 options.push(<Option key={item.value}>{item.label}</Option>);
 })
 
@@ -61,7 +60,7 @@ const modal = ({
         key: item.key
       }
       onOk(data)
-      console.log(data,"da")
+      // console.log(data,"da")
     })
   }
 
@@ -75,12 +74,12 @@ const modal = ({
     wrapClassName: 'vertical-center-modal'
   }
  var onok=(e)=>{
-    console.log('You selected', e)
+    // console.log('You selected', e)
     selected=[];
   e.map((item)=>{
     selected.push(item.value)
   })
-    console.log(selected,"select state value");
+    // console.log(selected,"select state value");
   }
   let defaultOption = selected
   return (

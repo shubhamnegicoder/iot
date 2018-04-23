@@ -19,7 +19,6 @@ function UserType({location, dispatch, userType}) {
     showmodel
   }=userType
   const {field, keyword} = location.query
-    console.log("modules",userType)
   const userModalProps ={
     modules,
     checked,

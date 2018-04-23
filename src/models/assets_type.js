@@ -7,12 +7,12 @@ export default {
 
   state: {
     list: [],
-    customerId:localStorage.getItem("customerId"),
-    id:localStorage.getItem("_id"),
+    customerId: localStorage.getItem("customerId"),
+    id: localStorage.getItem("_id"),
     loading: false,
     currentItem: {},
     modalVisible: false,
-  
+
     pagination: {
       showSizeChanger: true,
       showQuickJumper: true,
@@ -23,7 +23,7 @@ export default {
   },
 
   subscriptions: {
-    setup ({ dispatch, history }) {
+    setup({ dispatch, history }) {
       history.listen(location => {
         if (location.pathname === '/asset/assets_type') {
 
@@ -38,25 +38,25 @@ export default {
 
   effects: {
 
-    *query ({ payload }, { call, put }) {
+    *query({ payload }, { call, put }) {
       //console.log('here',payload)
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
       console.log("get data", data)
       if (data) {
-       
-        yield put({
-          type: 'querySuccess',
-          payload: {
-            list: data.data,
-            pagination: data.page
-          }
+        yield put
+          ({
+            type: 'querySuccess',
+            payload: {
+              list: data.data,
+              pagination: data.page
+            }
 
-        })
+          })
 
       }
     },
-    *'delete' ({ payload }, { call, put }) {
+    *'delete'({ payload }, { call, put }) {
       yield put({ type: 'showLoading' })
       const data = yield call(remove, { id: payload })
       if (data && data.success) {
@@ -72,7 +72,7 @@ export default {
         })
       }
     },
-    *create ({ payload }, { call, put }) {
+    *create({ payload }, { call, put }) {
       yield put({ type: 'hideModal' })
       yield put({ type: 'showLoading' })
       // console.log('====',payload)
@@ -96,7 +96,7 @@ export default {
         }
       }
     },
-    *update ({ payload }, { select, call, put }) {
+    *update({ payload }, { select, call, put }) {
       yield put({ type: 'hideModal' })
       yield put({ type: 'showLoading' })
 
@@ -124,23 +124,25 @@ export default {
   },
 
   reducers: {
-    showLoading (state) {
+    showLoading(state) {
       return { ...state, loading: true }
     },
-    querySuccess (state, action) {
-      const {list, pagination} = action.payload
-      return { ...state,
+    querySuccess(state, action) {
+      const { list, pagination } = action.payload
+      return {
+        ...state,
         list,
         loading: false,
         pagination: {
           ...state.pagination,
           ...pagination
-        }}
+        }
+      }
     },
-    showModal (state, action) {
+    showModal(state, action) {
       return { ...state, ...action.payload, modalVisible: true }
     },
-    hideModal (state) {
+    hideModal(state) {
       return { ...state, modalVisible: false }
     }
   }

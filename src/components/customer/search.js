@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Form, Button, Row, Col } from 'antd'
 import SearchGroup from '../ui/search'
-
-var e=false;
+var g=false;
 const modules=JSON.parse(localStorage.getItem("modules"))
 
 
@@ -22,7 +21,7 @@ const search = ({
     keyword,
     size: 'large',
     select: true,
-    selectOptions: [{ value: 'name', name: 'Name' }],
+    selectOptions: [{ value: 'name', name: 'Name' }, { value: 'address', name: 'Address' }],
     selectProps: {
       defaultValue: field || 'name'
     },
@@ -30,24 +29,26 @@ const search = ({
       onSearch(value)
     }
   }
-  modules.forEach(function(value){
-    if(value.name==="User"){
-      value.permission.forEach(function(value){
-        if(value=="POST"){
-         e=true;
-        }
-      })
-     
-    }
-  })
+  
+ 
+   modules.forEach(function(value){
+     if(value.name==="Customer"){
+       value.permission.forEach(function(value){
+         if(value=="POST"){
+          g=true;
+         }
+       })
+       
+     }
+   })
 
   return (
     <Row gutter={24}>
       <Col lg={8} md={12} sm={16} xs={24} style={{marginBottom: 16}}>
         <SearchGroup {...searchGroupProps} />
       </Col>
-      <Col lg={{offset: 8, span: 8}} md={16} sm={6} xs={24} style={{marginBottom: 16, textAlign: 'right'}}>
-        {e?<Button size='large' type='ghost' onClick={onAdd}>Add User</Button>:<div></div>}
+      <Col lg={{offset: 8, span: 8}} md={12} sm={8} xs={24} style={{marginBottom: 16, textAlign: 'right'}}>
+       {g?<Button size='large' type='ghost' onClick={onAdd}>Add Customer</Button>:<div></div>}
       </Col>
     </Row>
   )

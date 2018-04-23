@@ -26,7 +26,7 @@ export default {
   subscriptions: {
     setup ({ dispatch, history }) {
       history.listen(location => {
-        if (location.pathname === '/user/user') {
+        if (location.pathname === '/user/users') {
           dispatch({
             type: 'query',
             payload:location.query
@@ -39,13 +39,10 @@ export default {
   effects: {
 
     *query ({ payload }, { call, put }) {
-      //console.log('here',payload)
-      alert("");
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
       console.log(data,"userlist")
       if (data) {
-
         yield put({
           type: 'querySuccess',
           payload: {
@@ -76,14 +73,13 @@ export default {
     *create ({ payload }, { call, put }) {
       yield put({ type: 'hideModal' })
       yield put({ type: 'showLoading' })
-      // console.log('====',payload)
       const data = yield call(create, payload)
-      const data2 = yield call(query, parse(payload))
-      console.log(data,"user adddddddd")
+      // const data2 = yield call(query, parse(payload))
+      // console.log(data,"user adddddddd")
       if (data && data.success) {
-        //console.log('====',data2)
         yield put({ type: 'showLoading' })
-        const data = yield call(query, parse(payload))
+        // console.log(payload,"second query")
+        const data = yield call(query)
         console.log(data,"bhejo")
         if (data) {
 
