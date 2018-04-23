@@ -137,7 +137,7 @@ function App({ children, location, dispatch, app })
     menuTheme
   }
 
-  const siderProps = {
+  const siderProps={
     siderFold,
     selector,
     setting,
