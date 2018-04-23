@@ -86,21 +86,7 @@ const modal = ({
               ]
             })(<Input placeholder="customer Name"/>)}
           </FormItem>
-          {/* <FormItem label="Status" {...formItemLayout}>
-             {getFieldDecorator('status', {
-               initialValue: item.status,
-               rules: [
-                   {
-                       required: true,
-                       message: 'Please select status!'
-                   }
-               ]
-             })(<Select  placeholder="Select Status" >
-                  <Select.Option value="ACTIVE" >Active</Select.Option>
-                  <Select.Option value="INACTIVE" >Inactive</Select.Option>
-                </Select>
-             )}
-          </FormItem> */}
+         
         </Form>
       </Modal>
     </LocaleProvider>

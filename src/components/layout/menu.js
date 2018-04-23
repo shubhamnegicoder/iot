@@ -22,7 +22,7 @@ const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden
     return menuArray.map(item => {
       for (var i = 0; i < modules.length; i++) {
         console.log(item,"item")
-        if ((item.key == modules[i].name.toLowerCase()) && (item.key !== "asset") && (item.key !== "device") && (item.key !== "customer") || (item.key == "dashboard")) 
+        if ((item.key == modules[i].name.toLowerCase()) && (item.key !== "asset") && (item.key !== "device")  || (item.key == "dashboard")) 
         { console.log("itemkey",item.key)
           if (item.child) {
           childs.length = 0;
