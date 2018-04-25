@@ -8,6 +8,7 @@ export async function login (params) {
   })
 }
 export async function create (params) {
+  console.log(params,"params")
   return request(BASE_URL+'/addCustomer', {
     method: 'post',
     data: params
@@ -20,8 +21,9 @@ export async function logout (params) {
     data: params
   })
 }
-export async function query (params) {
-  return request(BASE_URL+'/allCustomer', {
+export async function  query (params) {
+  console.log(params,"query")
+  return request(BASE_URL+'/allCustomer?_id='+params, {
     method: 'get',
     data: params
   })

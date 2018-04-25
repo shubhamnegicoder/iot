@@ -60,6 +60,8 @@ function Assets({location, dispatch, assets}) {
     dataSource: list,
      modules,
     loading,
+    dropDownData:dropDownData,
+    branchDropDown:branchDropDown,
     pagination: pagination,
     onPageChange(page) {
       const {query, pathname} = location

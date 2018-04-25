@@ -151,6 +151,7 @@ class list extends React.Component {
       key: 'operation',
       width: '20%',
       render: (text, record) => {
+        console.log(record,"record")
          return (<Dropdown overlay={<Menu onClick={this.handleMenuClick.bind(null, record)}>
            <Menu.Item key='1'>Edit</Menu.Item>
 

@@ -10,7 +10,9 @@ export default {
     ishidden: false,
     id: localStorage.getItem("_id"),
     dashhide: false,
+    visible:false,
     dropDownData: JSON.parse(localStorage.getItem("dropDownData") || "[]"),
+    dropflag:true,
     selectValue: "",
     login: false,
     loading: false,
@@ -54,11 +56,12 @@ export default {
     *login({ payload }, { call, put }) {
       yield put({ type: 'showLoginButtonLoading' })
       const data = yield call(login, parse(payload))
-      var body = [];
-      if (data.data) {
-        body = data.data.module;
-        localStorage.setItem("modules", JSON.stringify(body));
-      }
+      console.log(data,"login data")
+      var body=[];
+      if(data.data){
+         body=data.data.module;
+         localStorage.setItem("modules",JSON.stringify(body));
+       }
       if (data.success) {
         var a = yield put({
           type: 'loginSuccess',
@@ -130,26 +133,22 @@ export default {
       yield put({ type: 'hideModal' })
       // yield put({ type: 'showLoading' })
       // console.log('====',payload)
-      const data = yield call(create, payload)
-      // const data2 = yield call(query, parse(payload))
-      // if (data && data.success) {
-      //   //console.log('====',data2)
-      //   yield put({ type: 'showLoading' })
-      //   const data = yield call(query, parse(payload))
-      //   if (data) {
-      //     // console.log("data in add",data)
-      //     yield put({
-      //       type: 'querySuccess',
-      //       payload: {
-      //         list: data.data,
-      //         pagination: data.page
-      //       }
+      const data = yield call(create, payload.data)
+      const data2 = yield call(query,payload.data._id)
+      console.log(data2,"dataa")
+       if (data && data.success) {
 
-      //     })
+          yield put({
+            type: 'updatedropdown',
+            payload: {
+              dropDownData: data2.data
+            }
 
-      //   }
-      // }
-    }
+          })
+
+        }
+      }
+    
   },
 
   reducers: {
@@ -172,6 +171,12 @@ export default {
         ...action.payload,
       }
     },
+    dropDownData(state,action)
+    { console.log(action.payload.dropDownData,"payload")
+       return{
+         ...state,...action.payload
+       }
+    },
     logoutSuccess(state, action) {
       localStorage.removeItem("dropDownData");
       alert("")
@@ -180,9 +185,8 @@ export default {
         ...action.payload,
         login: false,
         ishidden: false,
-        setting: false,
-        select: false
-
+        setting:false,
+        select:false
       }
     },
     set(state) {
@@ -303,6 +307,15 @@ export default {
         ...state,
         isNavbar: false
       }
+    },
+    drop(state){
+      return{
+        ...state,
+        visible:!state.visible
+      }
+    },
+    updatedropdown(state,action){
+        return{...state,...action.payload}
     },
     showModal(state, action) {
 

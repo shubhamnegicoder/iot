@@ -11,7 +11,7 @@ apiFunc.getAssetTypeList = () => {
     .query({ _id: id })
 }
 apiFunc.getCustomerList = () => {
-  const id = localStorage.getItem("_id");
+  const id=localStorage.getItem("_id");
   return superagent
     .get(BASE_URL + '/allCustomer')
     .query({ _id: id })

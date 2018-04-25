@@ -47,6 +47,7 @@ const search = ({
         <SearchGroup {...searchGroupProps} />
       </Col>
       <Col lg={{offset: 8, span: 8}} md={16} sm={6} xs={24} style={{marginBottom: 16, textAlign: 'right'}}>
+
         {e?<Button size='large' type='ghost' onClick={onAdd}>Add User</Button>:<div></div>}
       </Col>
     </Row>

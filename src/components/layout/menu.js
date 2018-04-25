@@ -22,10 +22,9 @@ const getMenus = function (menuArray,siderFold,modules,selector,setting,ishidden
       // console.log("selector")
     return menuArray.map(item => {
       for (var i = 0; i < modules.length; i++) {
-        // console.log(item,"item")
+        console.log(item,"item")
         if ((item.key == modules[i].name.toLowerCase()) && (item.key !== "asset") && (item.key !== "device")  || (item.key == "dashboard")) 
-        {
-          //  console.log("itemkey",item.key)
+        { console.log("itemkey",item.key)
           if (item.child) {
           childs.length = 0;
             item.child.map((item) => {

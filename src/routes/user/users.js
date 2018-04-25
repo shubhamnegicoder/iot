@@ -27,7 +27,8 @@ function Users({location, dispatch, users}) {
   }
   userType();
 
-  async function  customerList(){
+  async function  customerList()
+  {
     var a = await apiFunc.getCustomerList()
     users.dropDownData2 = a.body.data;
   }
@@ -45,7 +46,7 @@ function Users({location, dispatch, users}) {
       dispatch({type: `users/${modalType}`, payload: data})
     },
     onCancel() {
-      dispatch({type: 'users/hideModal'})
+      dispatch({type:'users/hideModal'})
     }
   }
 

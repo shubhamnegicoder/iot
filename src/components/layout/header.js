@@ -1,5 +1,5 @@
 import React from 'react'
-import {Menu, Icon, Popover, Badge, M,Avatar} from 'antd'
+import {Menu, Icon, Popover, Badge,Avatar} from 'antd'
 import styles from './main.less'
 import Menus from './menu'
 import config from  "../../utils"
@@ -27,13 +27,11 @@ class Header extends React.Component {
 		
       this.state = {
          headerColor: localStorage.getItem('berrAdminHeaderColor') ,
-         headerBackColor: localStorage.getItem('berrAdminHeaderBackColor'),
-         username:localStorage.getItem("username")
+         headerBackColor: localStorage.getItem('berrAdminHeaderBackColor')
       }
    }
   
   // this.props.logout()
-
   // handleClickMenu = e => e.key === 'logout' && logout()
   
 
@@ -41,7 +39,7 @@ render(){
   return (
     
     <div className={styles.header  + " " + this.props.headerTheme}>
-    <h4><b>Welcome {this.state.username}</b> </h4>
+    <h4><b>Welcome {this.props.user.name}</b> </h4>
     {this.props.isNavbar
       ? <Popover 
           placement='bottomLeft'
