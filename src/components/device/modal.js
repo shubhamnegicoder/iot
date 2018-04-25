@@ -69,16 +69,40 @@ const modal = ({
     
       <Modal {...modalOpts}>
         <Form horizontal>
-          <FormItem  label='_id' hasFeedback {...formItemLayout}>
+          <FormItem style={displayNone} label='_id' hasFeedback {...formItemLayout}>
             {getFieldDecorator('_id', {
               initialValue:id,
             })(<Input/>)}
           </FormItem>
-          <FormItem  label='customertId' hasFeedback {...formItemLayout}>
+          <FormItem  style={displayNone} label='customertId' hasFeedback {...formItemLayout}>
             {getFieldDecorator('customerId', {
               initialValue: customerId,
             })(<Input />)}
           </FormItem>
+
+           <FormItem label='Device Id' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('deviceId', {
+              initialValue: item.deviceId,
+              rules: [
+                {
+                  required: true,
+                  message: 'Device Id is required'
+                }
+              ]
+            })((type === "update" ? <Input readOnly={true} placeholder="Device Id" /> : <Input placeholder="Device Id" />))}
+          </FormItem>
+          <FormItem label='Device Name' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('deviceName', {
+              initialValue: item.deviceName,
+              rules: [
+                {
+                  required: true,
+                  message: 'Device Name is required'
+                }
+              ]
+            })((type === "update" ? <Input readOnly={true} placeholder="Device Name" /> : <Input placeholder="Device Name" />))}
+          </FormItem>
+
           <FormItem  label='Serial No.' hasFeedback {...formItemLayout}>
             {getFieldDecorator('serialNo', {
               initialValue: item.serialNo,
@@ -123,28 +147,7 @@ const modal = ({
               </Select>
              )}
           </FormItem>
-          <FormItem label='Device Id' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('deviceId', {
-              initialValue: item.deviceId,
-              rules: [
-                {
-                  required: true,
-                  message: 'Device Id is required'
-                }
-              ]
-            })((type === "update" ? <Input readOnly={true} placeholder="Device Id" /> : <Input placeholder="Device Id" />))}
-          </FormItem>
-          <FormItem label='Device Name' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('deviceName', {
-              initialValue: item.deviceName,
-              rules: [
-                {
-                  required: true,
-                  message: 'Device Name is required'
-                }
-              ]
-            })((type === "update" ? <Input readOnly={true} placeholder="Device Name" /> : <Input placeholder="Device Name" />))}
-          </FormItem>
+         
           <FormItem label='Device Type' hasFeedback {...formItemLayout}>
             {getFieldDecorator('deviceType', {
               initialValue: item.deviceType,

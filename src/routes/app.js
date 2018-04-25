@@ -131,7 +131,6 @@ function App({ children, location, dispatch, app })
       dispatch({ type: 'app/changeTheme' , payload: {  theme: value  }})
     },
     changeThemeHeader(value) {
-      //console.log(value)
       dispatch({ type: 'app/changeThemeHeader' , payload: {  theme: value  }})
     },
     headerTheme,
@@ -194,7 +193,7 @@ function App({ children, location, dispatch, app })
        type: 'app/showState',
        payload:e
      })
-     dispatch({type:"dashboard/allUser",payload:{ticket:false}})
+     dispatch({type:"dashboard/allUser",payload:{ticket:false,customerId:e}})
 
    }
 
@@ -284,12 +283,11 @@ var onAdd=()=>{
                     }
                 </FormItem>
 
-                <FormItem>
+                <FormItem hasFeedback {...formItemLayout}>
                   {b?<Button type='primary' size='large' onClick={onAdd}>Add Customer</Button>:<div></div>
                   } 
                 </FormItem>
                   </Form >
-                  
                  </div>
                   <CustomSider {...siderProps} />
           </aside>

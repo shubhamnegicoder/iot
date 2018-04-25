@@ -66,12 +66,12 @@ const modal = ({
     <LocaleProvider locale={enUS}>
       <Modal {...modalOpts}>
         <Form horizontal>
-          <FormItem label='_id' hasFeedback {...formItemLayout}>
+          <FormItem style={displayNone} label='_id' hasFeedback {...formItemLayout}>
             {getFieldDecorator('_id', {
               initialValue: id,
             })(<Input/>)}
           </FormItem>
-          <FormItem  label='customerId' hasFeedback {...formItemLayout}>
+          <FormItem style={displayNone}  label='customerId' hasFeedback {...formItemLayout}>
             {getFieldDecorator('customerId', {
               initialValue: customerId,
             })(<Input/>)}

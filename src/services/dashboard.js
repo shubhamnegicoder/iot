@@ -24,8 +24,8 @@ export async function queryRegion(params) {
   export async function allUser(params) {
    const id=localStorage.getItem("_id");
    const customerId=localStorage.getItem("customerId");
-    console.log(id,customerId,"ticket id")
-    return request(BASE_URL+'/getCount?_id=' +id+ '&customerId='+customerId, {
+    
+    return request(BASE_URL+'/getCount?_id=' +id, {
       method: 'get',
       data: params
     })

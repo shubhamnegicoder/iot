@@ -97,7 +97,7 @@ export default {
                 weather.city = data.channel.location.city
                  yield put({type: 'queryWeatherSuccess', payload: {weather}})
             }catch(e){
-                console.log("Error weather update")
+               
            }
 
         },
@@ -105,7 +105,6 @@ export default {
         *allUser({ payload }, { call, put }) {
             try {
                 const user = yield call(allUser, parse(payload))
-               
                 const dashboardCard = [{
                     icon: 'team',
                     color: color.green,
@@ -130,15 +129,16 @@ export default {
                 if (user) {
                     yield put({
                         type: "userSuccess",
-                        payload: {dashboardCard,
-                            ticket:payload.ticket
+                        payload:{dashboardCard,
+                            ticket:payload.ticket,
+                            customerId:payload.customerId
                         }
                     })
                 }
 
             }
             catch (e) {
-                console.log("error in allUser", e);
+               
             }
         }
     },

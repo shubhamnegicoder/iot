@@ -3,9 +3,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import superagent from 'superagent';
 import {BASE_URL, CLIENT_ID} from '../../CommonMethods/api';
-
-
-
+var customerId;
 const style = {
   width: '100%',
   height: '100%'
@@ -28,13 +26,13 @@ export default class IotMap extends Component {
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onMapClicked = this.onMapClicked.bind(this);
   }
-  componentWillMount() {
+  
+  componentWillReceiveProps(nextprops) {
     superagent
-    .get(this.props.all_device_api)
+    .get(BASE_URL+"/allDeviceRecentData?customerId="+nextprops.id)
     .end((err, response) => {
-     
       if (response !== undefined) {
-        this.setState({allDeviceData: response.body.data})
+        this.setState({allDeviceData:response.body.data})
       }
     })
 
@@ -55,8 +53,8 @@ export default class IotMap extends Component {
       })
     }
   }
-
   render() {
+  customerId=this.props.id;
     const {
       lat,
       lng
@@ -74,10 +72,11 @@ export default class IotMap extends Component {
               status={device.status}
               temp={device.temprature}
               deviceId={device.deviceId}
-              position={{lat: device.lat, lng: device.lng}}
-              icon={{
-                url: "assets/"+device.deviceType+".png"
-              }} />
+              position={{lat: device.recent.latitude, lng: device.recent.longitude}}
+              // icon={{
+              //   url: "assets/"+device.deviceType+".png"
+              // }} 
+              />
           })}
         <InfoWindow
           marker={this.state.activeMarker}
@@ -101,7 +100,7 @@ IotMap.propTypes ={
 }
 
 IotMap.defaultProps = {
-  all_device_api: BASE_URL+"/allDeviceRecentData?customerId="+CLIENT_ID
+  all_device_api: BASE_URL+"/allDeviceRecentData?customerId="+customerId
 }
 // google api loads manually if no api script in application
 // export default GoogleApiWrapper({

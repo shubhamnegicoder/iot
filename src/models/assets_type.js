@@ -42,7 +42,6 @@ export default {
       //console.log('here',payload)
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
-      console.log("get data", data)
       if (data) {
         yield put
           ({

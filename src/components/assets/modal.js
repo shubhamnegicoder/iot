@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react'
+import React, { PropTypes } from 'react'
 import {
   Form,
   Input,
@@ -9,7 +9,7 @@ import {
   LocaleProvider
 } from 'antd'
 import enUS from 'antd/lib/locale-provider/en_US';
-import {CLIENT_ID} from '../../CommonMethods/api'
+import { CLIENT_ID } from '../../CommonMethods/api'
 
 const FormItem = Form.Item
 
@@ -20,7 +20,7 @@ const formItemLayout = {
   wrapperCol: {
     span: 14
   }
- 
+
 }
 const displayNone = {
   display: "none"
@@ -50,6 +50,7 @@ const modal = ({
         ...getFieldsValue(),
         key: item.key
       }
+      // console.log(data, "ye ja rha h")
       onOk(data)
     })
   }
@@ -70,43 +71,15 @@ const modal = ({
     <LocaleProvider locale={enUS}>
       <Modal {...modalOpts}>
         <Form layout>
-          <FormItem  label='_id' hasFeedback {...formItemLayout}>
+          <FormItem  style={displayNone} label='_id' hasFeedback {...formItemLayout}>
             {getFieldDecorator('_id', {
               initialValue: id,
-            })(<Input/>)}
+            })(<Input />)}
           </FormItem>
-          <FormItem  label='customerId' hasFeedback {...formItemLayout}>
+          <FormItem  style={displayNone} label='customerId' hasFeedback {...formItemLayout}>
             {getFieldDecorator('customerId', {
               initialValue: customerId,
-            })(<Input/>)}
-          </FormItem>
-          <FormItem label='Serial No.' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('serialNo', {
-              initialValue: item.serialNo,
-              rules: [
-                {
-                  required: true,
-                  message: 'Serial no. is required'
-                }
-              ]
-            })(<Input placeholder="Serial No." />)}
-          </FormItem>
-          <FormItem label='Asset Type' hasFeedback {...formItemLayout}>
-             {getFieldDecorator('assetTypeId', {
-               initialValue: item.assetTypeID,
-               rules: [
-                   {
-                       required: true,
-                       message: 'Please select Asset Type!'
-                   }
-               ]
-             })(<Select  placeholder="Select Asset Type" >
-                 {
-              dropDownData  && dropDownData.map((item,index)=>{
-                  return <Select.Option value={item._id} key = {index} >{item.assetTypeName}</Select.Option>
-                })}
-                </Select>
-             )}
+            })(<Input />)}
           </FormItem>
           <FormItem label='Asset Name' hasFeedback {...formItemLayout}>
             {getFieldDecorator('assetName', {
@@ -119,37 +92,107 @@ const modal = ({
               ]
             })(<Input placeholder="Asset Name" />)}
           </FormItem>
-          {/* <FormItem label='Branch Name' {...formItemLayout}>
-             {getFieldDecorator('branchId', {
-               initialValue: item.branchId,
-               rules: [
-                   {
-                       required: true,
-                       message: 'Please select Branch!'
-                   }
-               ]
-             })(<Select  placeholder="Select Branch" >
-                   {
-                    branchDropDown.map((item,index)=>{
-                    return <Select.Option value={item.branchId} key = {index} >{item.branchName}</Select.Option>
-                  })}
-                </Select>
-             )}
-          </FormItem> */}
+
+
+          <FormItem label='Asset Type' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('assetTypeId', {
+              initialValue: item.assetTypeID,
+              rules: [
+                {
+                  required: true,
+                  message: 'Please select Asset Type!'
+                }
+              ]
+            })(<Select placeholder="Select Asset Type" >
+              {
+                dropDownData && dropDownData.map((item, index) => {
+                  return <Select.Option value={item._id} key={index} >{item.assetTypeName}</Select.Option>
+                })}
+            </Select>
+            )}
+          </FormItem>
+          <FormItem label='Serial No.' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('serialNo', {
+              initialValue: item.serialNo,
+              rules: [
+                {
+                  required: true,
+                  message: 'Serial no. is required'
+                }
+              ]
+            })(<Input placeholder="Serial No." />)}
+          </FormItem>
+
+          <FormItem label='Country' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('country', {
+              rules: [
+                {
+                  required: true,
+                  message: 'country is required'
+                }
+              ]
+            })(<Input placeholder="country" />)}
+          </FormItem>
+          <FormItem label='State' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('state', {
+              rules: [
+                {
+                  required: true,
+                  message: 'state  is required'
+                }
+              ]
+            })(<Input placeholder="state" />)}
+          </FormItem>
+          <FormItem label='City' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('city', {
+              rules: [
+                {
+                  required: true,
+                  message: 'city  is required'
+                }
+              ]
+            })(<Input placeholder="city" />)}
+          </FormItem>
+          <FormItem label='Area' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('area', {
+              rules: [
+                {
+                  required: true,
+                  message: 'area is required'
+                }
+              ]
+            })(<Input placeholder="area" />)}
+          </FormItem>
+          <FormItem label='Min Temperature' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('minTemperature', {
+            })(<Input placeholder="minTemperature" />)}
+          </FormItem>
+          <FormItem label='Max Temperature' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('maxTemperature', {
+            })(<Input placeholder="maxTemperature" />)}
+          </FormItem>
+          <FormItem label='Min speed' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('minSpeed', {
+            })(<Input placeholder="Min speed" />)}
+          </FormItem>
+          <FormItem label='Max speed' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('maxSpeed', {
+            })(<Input placeholder="Max speed" />)}
+          </FormItem>
           <FormItem label="Status" {...formItemLayout}>
-             {getFieldDecorator('status', {
-               initialValue: item.status,
-               rules: [
-                   {
-                       required: true,
-                       message: 'Please select status!'
-                   }
-               ]
-             })(<Select  placeholder="Select Status" >
-                  <Select.Option value="ACTIVE" >Active</Select.Option>
-                  <Select.Option value="INACTIVE" >Inactive</Select.Option>
-                </Select>
-             )}
+            {getFieldDecorator('status', {
+              initialValue: item.status,
+              rules: [
+                {
+                  required: true,
+                  message: 'Please select status!'
+                }
+              ]
+            })(<Select placeholder="Select Status" >
+              <Select.Option value="ACTIVE" >Active</Select.Option>
+              <Select.Option value="INACTIVE" >Inactive</Select.Option>
+            </Select>
+            )}
           </FormItem>
         </Form>
       </Modal>

@@ -2,7 +2,6 @@ import { request } from '../utils'
 
 export async function query (params) {
   const id = localStorage.getItem("_id");
-  console.log(id,"call hua")
   return request('http://139.59.95.113:8080/allUser?_id='+id, {
     method: 'get',
     data: params

@@ -20,10 +20,10 @@ function Device({location, dispatch, device}) {
     modalType
   } = device
  var modules=JSON.parse(localStorage.getItem("modules"))
-  console.log(modules,"kyo nhi aa rha")
+  // console.log(modules,"kyo nhi aa rha")
   async function getallasset() {
     var a= await apiFunc.getAsset();
-    console.log(a,"asset data in device")
+   
     device.dropdown=a.body.data;
   }
   getallasset()
@@ -46,7 +46,7 @@ function Device({location, dispatch, device}) {
       dispatch({type: 'device/hideModal'})
     }
   }
-console.log(userListProps,"list")
+  
   const userListProps = {
     
     dataSource:list,

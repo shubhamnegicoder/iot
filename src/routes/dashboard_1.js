@@ -50,7 +50,7 @@ function Dashboard({dashboard, dispatch,login}) {
       <Row gutter={24}>
         {numberCards}
       </Row>
-      <IotMap/>
+      <IotMap id={customerId}/>
     </div>
   )
 }

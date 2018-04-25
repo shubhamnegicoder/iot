@@ -32,7 +32,7 @@ const search = ({
    if(permission=="POST"){
     a=true;
    }
-   console.log(a,"kkkkk")
+  //  console.log(a,"kkkkk")
   return (
     <Row gutter={24}>
       <Col lg={8} md={12} sm={16} xs={24} style={{marginBottom: 16}}>
