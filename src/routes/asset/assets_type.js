@@ -64,7 +64,7 @@ function AssetsType({location, dispatch, assetsType}) {
       })
     }
   }
-  console.log(location,"path")
+ 
   const userSearchProps = {
     field,
     keyword,

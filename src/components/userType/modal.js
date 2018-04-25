@@ -51,33 +51,6 @@ const modal = ({
       const data = {
         ...getFieldsValue()
       }
-    console.log(data,"ja kya rha")
-      // var formdata=[];
-      // var modules=[];
-      // var permission=[];
-      //  for(var key in data )
-      //  {  console.log([key],"key",data[key])
-      //    if([key]="userType")
-      //      {
-         
-      //        formdata.push({"role":data[key]})
-      //      }
-      //    if (([key] =="Asset" && data[key]==true) || ([key] == "Device" && data[key] == true) || ([key] == "User" && data[key] == true) || ([key] == "Customer"&& data[key] == true))
-      //      {    console.log("heelo",[key])
-      //        modules.push({"name":data[key]})
-      //        if([key]=="Asset")
-      //        {
-      //           for(var key in data)
-      //           {
-      //             if (([key] == "AGET" && data[key] ==true) || ([key] == "APUT" && data[key]==true) || ([key] == "ADELETE" && data[key] == true) || ([key] == "APOST" && data[key] == true))
-      //             {
-      //               console.log("suCSESS")
-      //             }
-      //           }
-      //        }
-      //      }
-          
-      //   }
       onOk(data)
     })
    
@@ -95,7 +68,6 @@ const modal = ({
    flag=e.target.checked+name;
   }
  var checkbox=(name,label,bool,permission,optionclicked)=>{
-   console.log("permission",permission,name);
    if(optionclicked==true)
    {
    return <FormItem 
@@ -134,12 +106,6 @@ const modal = ({
               initialValue:(localStorage.getItem("_id")),
             })(<Input/>)}
           </FormItem>
-          {/* <FormItem style={displayNone} label='clientId' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('clientId', {
-              initialValue: 131,
-            })(<Input/>)}
-          </FormItem> */}
-          
           <FormItem label='Role'>
             {getFieldDecorator('role', {
               initialValue: item.role,
@@ -154,18 +120,16 @@ const modal = ({
           <h6><b>Permissions:</b></h6>
              {
                modules.map((item)=> 
-             {console.log("hello")
+             {
                 var items=[];
               if(item.name=="Asset")
               {
                 items.push(checkbox("Asset", "Asset",null,true))
                     item.permission.map((item) => {
-                      console.log(item, "per");
                       if (item == "GET" || item == "POST" || item == "PUT" || item == "DELETE") 
                       {
                         if (flag ==true+"Asset")
                         {
-                       
                          items.push(checkbox("A"+item, item,true,true,true))
                         }
                         else{
@@ -183,9 +147,7 @@ const modal = ({
                       if (item.name == "Device") {
                         items.push(checkbox("Device", "Device",null, true))
                         item.permission.map((item) => {
-                          console.log(item, "per");
                           if (item == "GET" || item == "POST" || item == "PUT" || item == "DELETE") {
-                            console.log("if", item);
                             if (flag == true +"Device") {
 
                               items.push(checkbox("D"+item, item, true, true,true))
@@ -193,13 +155,11 @@ const modal = ({
                             else {
                               items.push(checkbox("D"+item, item, true))
                             }
-                           
                           }
                         })
                         return items;
                       }
                     })
-      
               }
               {
               modules.map((item) => {
@@ -207,7 +167,6 @@ const modal = ({
                 if (item.name == "Customer") {
                   items.push(checkbox("Customer", "Customer",null, true))
                   item.permission.map((item) => {
-                    console.log(item, "per");
                     if (item == "GET" || item == "POST" || item == "PUT" || item == "DELETE") {
                       if (flag ==true+"Customer") {
 
@@ -230,9 +189,8 @@ const modal = ({
                 if (item.name == "User") {
                   items.push(checkbox("User", "User",null, true))
                   item.permission.map((item) => {
-                    console.log(item, "per");
                     if (item == "GET" || item == "POST" || item == "PUT" || item == "DELETE") {
-                      
+
                       if (flag == true + "User") {
 
                         items.push(checkbox("U" + item, item, true, true,true))

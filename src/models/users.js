@@ -41,7 +41,6 @@ export default {
     *query ({ payload }, { call, put }) {
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
-      console.log(data,"userlist")
       if (data) {
         yield put({
           type: 'querySuccess',
@@ -80,7 +79,6 @@ export default {
         yield put({ type: 'showLoading' })
         // console.log(payload,"second query")
         const data = yield call(query)
-        console.log(data,"bhejo")
         if (data) {
 
           yield put({

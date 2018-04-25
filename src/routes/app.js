@@ -135,7 +135,6 @@ function App({ children, location, dispatch, app })
       dispatch({ type: 'app/changeTheme' , payload: {  theme: value  }})
     },
     changeThemeHeader(value) {
-      //console.log(value)
       dispatch({ type: 'app/changeThemeHeader' , payload: {  theme: value  }})
     },
     headerTheme,
@@ -206,7 +205,7 @@ function App({ children, location, dispatch, app })
        type: 'app/showState',
        payload:e
      })
-     dispatch({type:"dashboard/allUser",payload:{ticket:false}})
+     dispatch({type:"dashboard/allUser",payload:{ticket:false,customerId:e}})
 
    }
 
@@ -324,7 +323,7 @@ var onAdd=()=>{
                 </Dropdown>
                     
           </div>
-                  <CustomSider {...siderProps} />
+       <CustomSider {...siderProps} />
           </aside>: ''}
         <div className={styles.main} id="main_content">
           <div className={styles.spin} >

@@ -24,7 +24,6 @@ export async function remove (params) {
 }
 
 export async function update (params) {
-  console.log("response", params)
   return request(BASE_URL+'/editAsset', {
     method: 'post',
     data: params

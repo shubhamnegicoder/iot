@@ -77,13 +77,10 @@ const modal = ({
   }
  var onok=(e)=>{
     console.log('You selected', e)
-    // console.log('You selected', e)
     selected=[];
   e.map((item)=>{
     selected.push(item.value)
   })
-  console.log(selected,"select state value");
-    // console.log(selected,"select state value");
   }
   let defaultOption = selected
   return (
@@ -93,11 +90,6 @@ const modal = ({
           <FormItem style={displayNone} label='_id' hasFeedback {...formItemLayout}>
             {getFieldDecorator('_id', {
               initialValue:(localStorage.getItem("_id")),
-            })(<Input/>)}
-          </FormItem>
-          <FormItem style={displayNone} label='clientId' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('clientId', {
-              initialValue: 131,
             })(<Input/>)}
           </FormItem>
           <FormItem label='Email Id' hasFeedback {...formItemLayout}>
@@ -176,6 +168,17 @@ const modal = ({
              </Select>
              )}
           </FormItem>
+          <FormItem label='Mobile No' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('mobile', {
+              initialValue: item.address,
+              rules: [
+                {
+                  required: true,
+                  message: 'Mobile is required'
+                }
+              ]
+            })(type === "update" ? <Input disabled={true} /> : <Input placeholder="Enter Mobile " />)}
+          </FormItem>
           <FormItem label='Address' hasFeedback {...formItemLayout}>
             {getFieldDecorator('address', {
               initialValue: item.address,
@@ -196,7 +199,18 @@ const modal = ({
                   message: 'city is required'
                 }
               ]
-            })(type === "update" ? <Input disabled={true} /> : <Input placeholder="Enter city" />)}
+            })(type === "update" ? <Input disabled={true} /> : <Input placeholder="Enter area" />)}
+          </FormItem>
+          <FormItem label='Area' hasFeedback {...formItemLayout}>
+            {getFieldDecorator('area', {
+              initialValue: item.city,
+              rules: [
+                {
+                  required: true,
+                  message: 'area is required'
+                }
+              ]
+            })(type === "update" ? <Input disabled={true} /> : <Input placeholder="Enter area" />)}
           </FormItem>
           <FormItem label='state' hasFeedback {...formItemLayout}>
             {getFieldDecorator('state', {

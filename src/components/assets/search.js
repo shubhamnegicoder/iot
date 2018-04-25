@@ -40,7 +40,7 @@ const search = ({
       
      }
    })
-console.log(c,"yha h")
+
   return (
     <Row gutter={24}>
       <Col lg={8} md={12} sm={16} xs={24} style={{marginBottom: 16}}>

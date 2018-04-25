@@ -79,21 +79,15 @@ export default {
     *create ({ payload }, { call, put }) {
       yield put({ type: 'hideModal' })
       yield put({ type: 'showLoading' })
-      // console.log(id,"bhuuututututututut");
-    // console.log('====',payload)
       const data = yield call(create, payload)
-      // console.log("data in add",data)
-      const data2 = yield call(query, parse(payload))
       if (data && data.success) {
-        //console.log('====',data2)
         yield put({ type: 'showLoading' })
-        const data = yield call(query, parse(payload))
+        const data = yield call(query)
         if (data) {
-          // console.log("data in add",data2)
           yield put({
             type: 'querySuccess',
             payload: {
-              list: data2.data,
+              list: data.data,
               pagination: data.page
             }
 

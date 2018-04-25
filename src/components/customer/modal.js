@@ -1,5 +1,5 @@
-import React, {PropTypes} from 'react'
-import {CLIENT_ID} from '../../CommonMethods/api'
+import React, { PropTypes } from 'react'
+import { CLIENT_ID } from '../../CommonMethods/api'
 import {
   Form,
   Input,
@@ -48,14 +48,13 @@ const modal = ({
       }
       const data = {
         ...getFieldsValue(),
-       
+
       }
       
       onOk(data,notify)
     })
   }
-  
-  
+
   const modalOpts = {
     title: `${type === 'create'
       ? 'Create New Customer'
@@ -65,33 +64,56 @@ const modal = ({
     onCancel,
     wrapClassName: 'vertical-center-modal'
   }
+  var permission;
 
   return (
     <LocaleProvider locale={enUS}>
       <Modal {...modalOpts}>
         <Form horizontal>
-          <FormItem   label='_id' hasFeedback {...formItemLayout}>
+          <FormItem style={displayNone} label='_id' hasFeedback {...formItemLayout}>
             {getFieldDecorator('_id', {
-              initialValue:id,
-            })(<Input/>)}
+              initialValue: (localStorage.getItem("_id")),
+            })(<Input />)}
           </FormItem>
-          {/* <FormItem style={displayNone} label='clientId' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('clientId', {
-              initialValue: CLIENT_ID,
-            })(<Input/>)}
-          </FormItem> */}
           <FormItem label='Customer Name' hasFeedback {...formItemLayout}>
             {getFieldDecorator('customerName', {
-              initialValue:item.customerName,
+              initialValue: item.customerName,
               rules: [
                 {
                   required: true,
                   message: 'customer Name is required'
                 }
               ]
-            })(<Input placeholder="customer Name"/>)}
+            })(<Input placeholder="customer Name" />)}
           </FormItem>
-         
+          <FormItem   style={{margin:"50px"}} label={'Alert Type'} 
+          >
+           <FormItem label={"Email"}  className={"col-xs-3"} 
+          >
+            {
+              getFieldDecorator('email',
+                {
+                })(<input type="checkbox"  />)
+            }
+            </FormItem>
+            <FormItem label={"Message"}  className={"col-xs-3"} 
+          >
+            {
+              getFieldDecorator('sms',
+                {
+                })(<input type="checkbox"  />)
+            }
+            </FormItem>
+            <FormItem label={"notification"}  className={"col-xs-3"} 
+          >
+            {
+              getFieldDecorator('notification',
+                {
+                })(<input type="checkbox"  />)
+            }
+            </FormItem>
+          </FormItem>
+
         </Form>
       </Modal>
     </LocaleProvider>

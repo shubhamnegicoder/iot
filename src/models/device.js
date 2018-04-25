@@ -44,7 +44,6 @@ export default {
       //console.log('here',payload)
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
-      console.log(data,"device list")
       if (data) {
 
         yield put({
@@ -82,11 +81,11 @@ export default {
       yield put({ type: 'showLoading' })
       // console.log('====',payload)
       const data = yield call(create, payload)
-      const data2 = yield call(query, parse(payload))
+      // const data2 = yield call(query, parse(payload))
       if (data && data.success) {
         //console.log('====',data2)
         yield put({ type: 'showLoading' })
-        const data = yield call(query, parse(payload))
+        const data = yield call(query)
         if (data) {
 
           yield put({

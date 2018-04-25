@@ -63,11 +63,7 @@ export default {
          localStorage.setItem("modules",JSON.stringify(body));
        }
       if (data.success) {
-        console.log("if")
         var a = yield put({
-          //       if (data.success) { 
-
-          //         yield put({
           type: 'loginSuccess',
           payload: {
             user: {
@@ -78,26 +74,10 @@ export default {
         })
       } else {
         yield put({ type: 'loginFail' })
-        console.log("fail");
       }
-      // console.log(b,"b");
+     
     },
-    // *queryUser({ payload }, {call, put}) {
-    //   // yield put({type: 'showLoading'})
-    //   const data = yield call(userinfo, parse(payload))
-    //   if (data.success) {
-    //     yield put({
-    //       type: 'loginSuccess',
-    //       payload: {
-    //         user: {
-    //           name: data.username
-    //         },
-    //         modules:"zio"
-    //       }
-    //     })
-    //   }
-    //   yield put({type: 'hideLoading'})
-    // },
+   
     *setting({ payload }, { call, put }) {
       yield put({ type: 'set' })
     },
