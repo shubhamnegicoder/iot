@@ -79,11 +79,11 @@ export default function ({history,app}) {
                     }
                 },
                {
-                    path: 'regions',
-                    name: 'regions',
+                    path: 'customer',
+                    name: 'customer',
                     getComponent(nextState, cb) {
                         require.ensure([], require => {
-                            cb(null, require('./routes/table/regions'))
+                            cb(null, require('./routes/customer'))
                         })
                     }
                 }, {

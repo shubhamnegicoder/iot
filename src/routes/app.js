@@ -14,16 +14,18 @@ import { classnames, config } from '../utils'
 import '../components/layout/common.less'
 import enUS from 'antd/lib/locale-provider/en_US';
 import RightSider from '../components/layout/rightSider';
-import { Layout,Form,Select,Row,Button,Modal } from 'antd';
+import { Layout,Form,Select,Row,Button,Modal,notification,Dropdown,Icon} from 'antd';
 import { BackTop } from 'antd';
 import {apiFunc, BASE_URL,CLIENT_ID} from '../CommonMethods/api';
 import CustomModal from '../components/customer/modal';
 
 const { Sider, Content } = Layout;
 const FormItem = Form.Item
-var dropDownData=[];
+var b= false;
+var flag=true;
+
 function App({ children, location, dispatch, app }) 
-{
+{ 
   const {
     login,
     loading,
@@ -33,6 +35,8 @@ function App({ children, location, dispatch, app })
     selectValue,
     loginButtonLoading,
     user,
+    visible,
+    dropflag,
     siderFold,
     siderFoldRight,
     darkTheme,
@@ -58,6 +62,7 @@ function App({ children, location, dispatch, app })
     loading,
     loginButtonLoading,
      onOk(data) {
+     
          dispatch({type:'app/login',payload: data })
     }
    
@@ -94,7 +99,7 @@ function App({ children, location, dispatch, app })
     },
     logout() {
       alert("logout called");
-      dispatch({ type: 'app/logout' })
+      dispatch({type:'app/logout'})
       // localStorage.removeItem("modules");
       localStorage.removeItem("username")
       localStorage.removeItem("_id")
@@ -178,11 +183,19 @@ function App({ children, location, dispatch, app })
       : currentItem,
     type: modalType,
     visible: modalVisible,
-    onOk(data) {
-      dispatch({type: `app/${modalType}`, payload: data})
+    onOk(data,callback){
+
+      dispatch({ type: `app/${modalType}`, payload: { data: data, dropDownData: app.dropDownData}})
+      callback("success")
     },
     onCancel() {
       dispatch({type: 'app/hideModal'})
+    },
+      notify:(type)=>{  
+      notification[type]({
+        message: 'Notification',
+        description: 'Customer added successfully',
+      });
     }
   }
 
@@ -194,19 +207,13 @@ function App({ children, location, dispatch, app })
        payload:e
      })
      dispatch({type:"dashboard/allUser",payload:{ticket:false}})
-  
-   
-    //  window.location.href='./routes/dashboard_1'
 
    }
 
-  //  console.log(selectValue,"selectstate");
   async function customer(){
     var data2= await apiFunc.getCustomerList();
     app.dropDownData=data2.body.data;
    }
-
-   customer();
 
 
   if (SignUp) {
@@ -239,8 +246,32 @@ function App({ children, location, dispatch, app })
       )
     }
   }
-  var onAdd=()=>{
-    
+ const dropdown=(
+<Form>
+   <FormItem label='Customer List' hasFeedback {...formItemLayout}>
+     {
+       (<Select placeholder="Select customer" onChange={(e) => { handleok(e) }} >
+
+         {
+
+           app.dropDownData && app.dropDownData.map((item, index) => {
+
+
+             return <Select.Option name={item.customerName} value={item._id} key={index}><Link to='dashboard'>{item.customerName}</Link></Select.Option>
+           })}
+       </Select>
+       )
+     }
+   </FormItem>
+
+   <FormItem>
+     {b ? <Button type='primary' icon="user-add" size='large' onClick={() => onAdd('success')}>Add Customer</Button> : <div></div>
+     }
+   </FormItem>
+</Form>
+ );
+var onAdd=()=>{
+
      dispatch({
        type: 'app/showModal',
        payload: {
@@ -248,44 +279,53 @@ function App({ children, location, dispatch, app })
        }
      })
    }
+  
+   modules.forEach(function(value){
+     if(value.name==="Customer"){
+       value.permission.forEach(function(value){
+         if(value=="POST"){
+          b=true;
+         }
+       })
+      
+     }
+   })
+   
+  customer();
+  var visiblechange=(visible)=>{
+      dispatch({type:"app/drop"})
+    }
 
-  if (login || (config.needLogin()==false)) {
-    
-       localStorage.setItem("dropDownData",JSON.stringify(app.dropDownData));
+
+  
+
+  if (login || (config.needLogin()==false)) 
+  { 
+    localStorage.setItem("dropDownData", JSON.stringify(app.dropDownData));
+ 
+     console.log(app,"app")
+        //  dispatch({type:'app/dropDownData'},{payload:{dropDownData:JSON.parse(localStorage.getItem('dropDownData'))}})
+            //  if(dropDownData.length>0)
+      //  { 
+      //    dispatch({ type:'app/dropDownData',payload:{dropDownData:app.dropDownData}})
+      //  }
       // console.log(app,"states app");
       // console.log(config.needLogin(),"config");
     return (
       <div
         className={classnames(styles.layout, { [styles.fold]: isNavbar ? false : siderFold  }, {  [styles.withnavbar]: isNavbar  })}>
-        {!isNavbar  ? <aside
-            className={classnames(styles.sider , (menuTheme=="dark") ? styles.dark : menuTheme=="light" ?  styles.light : "menu_"+menuTheme )} >
-            
-            <div>
-            
-                    <Form >
-                    <FormItem label='Customer List' hasFeedback {...formItemLayout}>
-                    {
-                    ( <Select  placeholder="Select customer" onChange={(e)=>{handleok(e)}} >
+        {!isNavbar  ? <aside className={classnames(styles.sider , (menuTheme=="dark") ? styles.dark : menuTheme=="light" ?  styles.light : "menu_"+menuTheme )} >
 
-                      {
-                           app.dropDownData.map((item,index)=>{
-
-                        return <Select.Option name={item.customerName} value={item._id} key = {index}><Link to='dashboard'>{item.customerName}</Link></Select.Option>
-                      })}
-                      </Select>
-                       )
-                    }
-                </FormItem>
-
-                <FormItem>
-                   <Button type='primary' size='large' onClick={onAdd}>Add Customer</Button>
-                </FormItem>
-                  </Form >
-                  
-                 </div>
+            <div >
+                <Dropdown overlay={dropdown} onClick={()=>{visiblechange(app.visible)}} visible={app.visible} trigger={['click']}>
+              <Button type="primary">
+                    Add Customer <Icon type="down" />
+                  </Button>
+                </Dropdown>
+                    
+          </div>
                   <CustomSider {...siderProps} />
-          </aside>
-          : ''}
+          </aside>: ''}
         <div className={styles.main} id="main_content">
           <div className={styles.spin} >
             <Spin tip='Loading...' spinning={loading} size='large'>
@@ -304,6 +344,7 @@ function App({ children, location, dispatch, app })
         </div>
         <CustomModal {...userModalProps}/>
       </div>
+
     )
   }
   else
@@ -321,7 +362,6 @@ function App({ children, location, dispatch, app })
 
   
 }
-
 App.propTypes = {
   children: PropTypes.element.isRequired,
   location: PropTypes.object,

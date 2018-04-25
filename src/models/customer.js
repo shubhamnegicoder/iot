@@ -1,16 +1,14 @@
-import { create, remove, update, query } from '../services/user_type'
+import { create, remove, update, query } from '../services/customer'
 import { parse } from 'qs'
 
 export default {
 
-  namespace: 'userType',
+  namespace: 'customer',
 
   state: {
+    id:localStorage.getItem("_id"),
     list: [],
     loading: false,
-    checked:false,
-    showmodel:false,
-    modules: JSON.parse(localStorage.getItem("modules") || '[]'),
     currentItem: {},
     modalVisible: false,
     modalType: 'create',
@@ -26,7 +24,7 @@ export default {
   subscriptions: {
     setup ({ dispatch, history }) {
       history.listen(location => {
-        if (location.pathname === '/user/user_type') {
+        if (location.pathname === '/customer') {
           dispatch({
             type: 'query',
             payload: location.query
@@ -39,22 +37,21 @@ export default {
   effects: {
 
     *query ({ payload }, { call, put }) {
+     
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
+       console.log('here',data)
       if (data) {
+
         yield put({
           type: 'querySuccess',
           payload: {
             list: data.data,
-            pagination: data.page,
-            modules:JSON.parse(localStorage.getItem("modules"))
+            pagination: data.page
           }
 
         })
 
-      }
-      else{
-        alert("service not working")
       }
     },
     *'delete' ({ payload }, { call, put }) {
@@ -76,11 +73,15 @@ export default {
     *create ({ payload }, { call, put }) {
       yield put({ type: 'hideModal' })
       yield put({ type: 'showLoading' })
+      // console.log('====',payload)
       const data = yield call(create, payload)
+      const data2 = yield call(query, parse(payload))
       if (data && data.success) {
+        //console.log('====',data2)
         yield put({ type: 'showLoading' })
         const data = yield call(query, parse(payload))
         if (data) {
+
           yield put({
             type: 'querySuccess',
             payload: {
@@ -97,9 +98,12 @@ export default {
       yield put({ type: 'hideModal' })
       yield put({ type: 'showLoading' })
 
-      const id = yield select(({ role }) => role.currentItem._id)
+      const id = yield select(({ users }) => users.currentItem._id)
       const newUser = { ...payload, id }
+      //newUser._id = users.currentItem._id;
 
+      //newUser._id = ({ users }) => users.currentItem._id;
+      //console.log(newUser,'users');
       const data = yield call(update, newUser)
       if (data && data.success) {
         yield put({ type: 'showLoading' })
@@ -122,10 +126,10 @@ export default {
       return { ...state, loading: true }
     },
     querySuccess (state, action) {
-      const {list, pagination,modules} = action.payload
+
+      const {list, pagination} = action.payload
       return { ...state,
         list,
-        modules,
         loading: false,
         pagination: {
           ...state.pagination,
@@ -136,7 +140,7 @@ export default {
       return { ...state, ...action.payload, modalVisible: true }
     },
     hideModal (state) {
-      return { ...state, modalVisible: false }
+      return { ...state, modalVisible:false }
     }
   }
 

@@ -39,7 +39,7 @@ module.exports = [
         key: 'user',
         name: 'Users',
         icon: 'team',
-        clickable: false,
+        clickable:true,
         child: [
             {
                 key: 'users',

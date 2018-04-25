@@ -51,7 +51,7 @@ function Dashboard({dashboard, dispatch,login}) {
         {numberCards}
       </Row>
       <IotMap/>
-    </div>
+     </div>
   )
 }
 

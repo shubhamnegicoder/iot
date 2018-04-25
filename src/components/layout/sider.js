@@ -17,8 +17,6 @@ function Sider({siderFold, menuTheme,darkTheme,location, changeTheme,changeLock,
     modules,
     ishidden
   }
-  const allmenu={
-  }
   return (
     console.log(setting,"set"),
     <div className={"menu_"+ menuTheme}>
@@ -31,7 +29,7 @@ function Sider({siderFold, menuTheme,darkTheme,location, changeTheme,changeLock,
               onChange={changeTheme.bind(this, menuTheme=="dark" ? "light":"dark")}
               defaultChecked={!(menuTheme=="dark")}
               checkedChildren='Dark'
-              unCheckedChildren='Light' />
+              unCheckedChildren='Light'/>
           <Switch
           onChange={changeLock}
           checkedChildren={<Icon type="lock" />}

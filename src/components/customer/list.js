@@ -126,32 +126,21 @@ class list extends React.Component {
 
      const columns = [
     {
-      title: 'Serial No.',
-      dataIndex: 'serialNo',
-      key: 'serialNo',
-      width: '20%'
-    }, {
-      title: 'Asset Type',
-      dataIndex: 'assetTypeName',
+      title: 'CustomerName',
+      dataIndex: 'customerName',
       width: '20%',
-      key: 'assetTypeName'
-    }, {
-      title: 'Asset Name',
-      dataIndex: 'assetName',
-      width: '20%',
-      key: 'assetName'
-
-    }, {
+      key: 'deviceId'
+    },
+     {
       title: 'Status',
       dataIndex: 'status',
       width: '20%',
-      key: 'status'
+      key:'status'
     }, {
       title: 'Operation',
       key: 'operation',
       width: '20%',
       render: (text, record) => {
-        console.log(record,"record")
          return (<Dropdown overlay={<Menu onClick={this.handleMenuClick.bind(null, record)}>
            <Menu.Item key='1'>Edit</Menu.Item>
 
@@ -164,10 +153,19 @@ class list extends React.Component {
        }
     }
   ]
-   //console.log(dataSource)
+
     return <div>
       <LocaleProvider locale={enUS}>
-      <Table className={styles.table} bordered  columns={columns} dataSource={dataSource} loading={loading} onChange={::this.pageChange} pagination={pagination} simple rowKey={record => record._id} getBodyWrapper={this.getBodyWrapper}   scroll={{ x: this.state.width }} /></LocaleProvider>
+        <Table className={styles.table} bordered
+          columns={columns}
+          dataSource={dataSource}
+          loading={loading}
+          onChange={this.pageChange}
+          pagination={pagination} simple
+          rowKey={record => record._id}
+          getBodyWrapper={this.getBodyWrapper}
+          scroll={{ x: this.state.width }} />
+      </LocaleProvider>
     </div>
   }
 }

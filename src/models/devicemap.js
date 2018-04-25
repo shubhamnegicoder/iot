@@ -1,4 +1,4 @@
-import {query } from '../services/devicemap'
+import { query } from '../services/devicemap'
 import { parse } from 'qs'
 
 export default {
@@ -9,9 +9,9 @@ export default {
   },
 
   subscriptions: {
-    setup ({ dispatch, history }) {
+    setup({ dispatch, history }) {
       history.listen(location => {
-        var deviceId = {deviceId: location.query.id}
+        var deviceId = { deviceId: location.query.id }
         if (location.pathname === '/devicemap') {
           dispatch({
             type: 'query',
@@ -24,7 +24,7 @@ export default {
 
   effects: {
 
-    *query ({ payload }, { call, put }) {
+    *query({ payload }, { call, put }) {
       //console.log('here',payload)
       yield put({ type: 'showLoading' })
       const data = yield call(query, parse(payload))
@@ -40,16 +40,17 @@ export default {
   },
 
   reducers: {
-    showLoading (state) {
+    showLoading(state) {
       return { ...state, loading: true }
     },
-    querySuccess (state, action) {
+    querySuccess(state, action) {
 
-      const {deviceHistory} = action.payload
-      return { ...state,
+      const { deviceHistory } = action.payload
+      return {
+        ...state,
         ...action.payload,
         loading: false,
-        }
+      }
     }
   }
 

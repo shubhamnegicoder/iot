@@ -11,6 +11,8 @@ import {
 } from 'antd'
 import enUS from 'antd/lib/locale-provider/en_US';
 
+
+
 const FormItem = Form.Item
 
 const formItemLayout = {
@@ -30,6 +32,7 @@ const modal = ({
   type,
   item = {},
   onOk,
+  notify,
   onCancel,
   form: {
     getFieldDecorator,
@@ -40,23 +43,25 @@ const modal = ({
   function handleOk() {
     validateFields((errors) => {
       if (errors) {
+
         return
       }
       const data = {
         ...getFieldsValue(),
        
       }
-      console.log(data,"item");
-      onOk(data)
+      
+      onOk(data,notify)
     })
   }
-
+  
+  
   const modalOpts = {
     title: `${type === 'create'
       ? 'Create New Customer'
       : 'Edit Asset Type'}`,
     visible,
-    onOk: handleOk,
+    onOk:handleOk,
     onCancel,
     wrapClassName: 'vertical-center-modal'
   }

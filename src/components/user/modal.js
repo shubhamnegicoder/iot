@@ -1,4 +1,6 @@
 import React, {PropTypes} from 'react'
+import Drop from 'react-select';
+import Dropdown from 'react-dropdown-multiselect'
 import {
   Form,
   Input,
@@ -60,6 +62,7 @@ const modal = ({
       }
       onOk(data)
       console.log(data,"da")
+
     })
   }
 
@@ -74,11 +77,13 @@ const modal = ({
   }
  var onok=(e)=>{
     console.log('You selected', e)
+    // console.log('You selected', e)
     selected=[];
   e.map((item)=>{
     selected.push(item.value)
   })
-    console.log(selected,"select state value");
+  console.log(selected,"select state value");
+    // console.log(selected,"select state value");
   }
   let defaultOption = selected
   return (
