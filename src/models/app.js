@@ -11,6 +11,7 @@ export default {
     id: localStorage.getItem("_id"),
     dashhide: false,
     visible:false,
+    customerId: localStorage.getItem("customerId"),
     dropDownData: JSON.parse(localStorage.getItem("dropDownData") || "[]"),
     dropflag:true,
     selectValue: "",
@@ -153,6 +154,7 @@ export default {
 
   reducers: {
     loginSuccess(state, action) {
+      alert("login")
       localStorage.setItem("username", action.payload.user.name);
       localStorage.setItem("_id", action.payload.id);
       //  console.log(state,"success state");
@@ -234,7 +236,7 @@ export default {
         ishidden: true,
         dashhide: true,
         setting: false,
-        customerId: localStorage.getItem("customerId"),
+        customerId:action.payload,
         selectValue: action.payload
       }
     },

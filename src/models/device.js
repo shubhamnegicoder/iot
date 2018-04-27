@@ -11,9 +11,9 @@ export default {
     id:localStorage.getItem("_id"),
     customerId:localStorage.getItem("customerId"),
     loading: false,
-    currentItem: {},
+    currentItem:{},
     modules:JSON.parse(localStorage.getItem("modules")),
-    modalVisible: false,
+    modalVisible:false,
     modalType: 'create',
     pagination: {
       showSizeChanger: true,
@@ -50,7 +50,8 @@ export default {
           type: 'querySuccess',
           payload: {
             list: data.data,
-            pagination: data.page
+            pagination: data.page,
+            modules:JSON.parse(localStorage.getItem("modules"))
           }
 
         })
@@ -129,7 +130,7 @@ export default {
       return { ...state, loading: true }
     },
     querySuccess (state, action) {
-
+         console.log(action.payload,"action")
       const {list, pagination,modules} = action.payload
       return { ...state,
         list,

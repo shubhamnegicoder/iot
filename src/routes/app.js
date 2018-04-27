@@ -4,6 +4,7 @@ import { Link } from 'dva/router'
 import Login from './login'
 import Header from '../components/layout/header'
 import Dashboard from '../routes/dashboard_1'
+import Device from "../routes/table/device"
 import LockPage from '../routes/pages/lockscreen'
 import Bread from '../components/layout/bread'
 import Footer from '../components/layout/footer'
@@ -211,8 +212,9 @@ function App({ children, location, dispatch, app })
        payload:e
      })
      dispatch({type:"dashboard/allUser",payload:{ticket:false,customerId:e}})
+    dispatch({ type: "device/query"})
 
-   }
+    }
 
   async function customer(){
     var data2= await apiFunc.getCustomerList();
@@ -304,12 +306,11 @@ var onAdd=()=>{
    
   customer();
   var visiblechange=(visible)=>{
+    dispatch({
+      type: 'app/showState'
+    })
       dispatch({type:"app/drop"})
     }
-
-
-  
-
   if (login || (config.needLogin()==false)) 
   { 
     localStorage.setItem("dropDownData", JSON.stringify(app.dropDownData));
@@ -330,7 +331,7 @@ var onAdd=()=>{
             <div >
                 <Dropdown overlay={dropdown} onClick={()=>{visiblechange(app.visible)}} visible={app.visible} trigger={['click']}>
               <Button type="primary">
-                    Add Customer <Icon type="down" />
+                    Select Customer <Icon type="down" />
                   </Button>
                 </Dropdown>
                     

@@ -32,9 +32,10 @@ function Dashboard({dashboard, dispatch,login}) {
     customerId,
   } = dashboard
 
-  
+  console.log(dashboard,"dash")
  if(dashboard.ticket==true ) 
- { dispatch({type:"dashboard/allUser",payload:{ticket:false}})
+ {
+   dispatch({ type:"dashboard/allUser", payload: {ticket:false,customerId:customerId}})
 }
 
   const numberCards = dashboardCard.map((item, key) =>
