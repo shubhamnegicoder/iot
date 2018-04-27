@@ -3,6 +3,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import superagent from 'superagent';
 import {BASE_URL, CLIENT_ID} from '../../CommonMethods/api';
+import openSocket from 'socket.io-client';
+// import io from 'socket.io-client';
+
+
 var customerId;
 const style = {
   width: '100%',
@@ -20,13 +24,23 @@ export default class IotMap extends Component {
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {},
-      allDeviceData: []
+      allDeviceData: [],
+      alert:String
+      
     }
     // binding this to event-handler functions
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onMapClicked = this.onMapClicked.bind(this);
   }
-  
+  componentDidMount(){
+    const socket = openSocket('http://139.59.95.113:8081');
+    
+    socket.on('5ad83ff0b443435298741d3b000012345678901',(data)=>{
+      console.log(data,"aayega ki nhi")
+      this.setState({alert:data.type})
+     
+    });
+    }
   componentWillReceiveProps(nextprops) {
     superagent
     .get(BASE_URL+"/allDeviceRecentData?customerId="+nextprops.id)
@@ -66,7 +80,9 @@ export default class IotMap extends Component {
             lat: lat,
             lng: lng }}
           onClick={this.onMapClicked}>
-          {this.state.allDeviceData && this.state.allDeviceData.map((device, index) => {
+
+          {  
+            this.state.allDeviceData && this.state.allDeviceData.map((device, index) => {
             return <Marker key={index} onClick={this.onMarkerClick}
               deviceType={device.deviceType}
               status={device.status}

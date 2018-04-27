@@ -18,11 +18,15 @@ import { Layout,Form,Select,Row,Button,Modal,notification,Dropdown,Icon} from 'a
 import { BackTop } from 'antd';
 import {apiFunc, BASE_URL,CLIENT_ID} from '../CommonMethods/api';
 import CustomModal from '../components/customer/modal';
+import openSocket from 'socket.io-client';
+// import io from 'socket.io-client';
+const socket = openSocket('http://139.59.95.113:8081');
 
 const { Sider, Content } = Layout;
 const FormItem = Form.Item
 var b= false;
 var flag=true;
+
 
 function App({ children, location, dispatch, app }) 
 { 
@@ -199,6 +203,7 @@ function App({ children, location, dispatch, app })
   }
 
 
+ 
   
   var handleok=(e)=>{
      dispatch({
@@ -213,6 +218,13 @@ function App({ children, location, dispatch, app })
     var data2= await apiFunc.getCustomerList();
     app.dropDownData=data2.body.data;
    }
+
+  //  async function socket(){
+  //    var data=await apiFunc.socketmodule();
+  //    console.log(data,"in app socket")
+  //  }
+
+  //  socket();
 
 
   if (SignUp) {
