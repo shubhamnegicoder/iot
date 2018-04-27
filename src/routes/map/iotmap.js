@@ -28,14 +28,15 @@ export default class IotMap extends Component {
   }
   
   componentWillReceiveProps(nextprops) {
+    console.log(nextprops,"props")
     superagent
     .get(BASE_URL+"/allDeviceRecentData?customerId="+nextprops.id)
     .end((err, response) => {
+      console.log(response,"res")
       if (response !== undefined) {
         this.setState({allDeviceData:response.body.data})
       }
     })
-
   }
   onMarkerClick(props, marker, e) {
     this.setState({
@@ -67,11 +68,12 @@ export default class IotMap extends Component {
             lng: lng }}
           onClick={this.onMapClicked}>
           {this.state.allDeviceData && this.state.allDeviceData.map((device, index) => {
+            console.log("data",device)
             return <Marker key={index} onClick={this.onMarkerClick}
               deviceType={device.deviceType}
-              status={device.status}
-              temp={device.temprature}
-              deviceId={device.deviceId}
+              status={device.recent.status}
+              temp={device.recent.temp}
+              deviceId={device.recent.deviceId}
               position={{lat: device.recent.latitude, lng: device.recent.longitude}}
               // icon={{
               //   url: "assets/"+device.deviceType+".png"
@@ -99,9 +101,9 @@ IotMap.propTypes ={
   all_device_api: PropTypes.string
 }
 
-IotMap.defaultProps = {
-  all_device_api: BASE_URL+"/allDeviceRecentData?customerId="+customerId
-}
+// IotMap.defaultProps = {
+//   all_device_api: BASE_URL+"/allDeviceRecentData?customerId="+customerId
+// }
 // google api loads manually if no api script in application
 // export default GoogleApiWrapper({
 //   apiKey: 'AIzaSyCfPJonsREY-XuLLfLPSlYjfihOhkmbaE0'

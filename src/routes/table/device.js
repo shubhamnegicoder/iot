@@ -6,6 +6,7 @@ import UserSearch from '../../components/device/search'
 import UserModal from '../../components/device/modal'
 import {apiFunc} from "../../CommonMethods/api"
 import {Row, Col} from 'antd';
+import App from '../app';
 
 function Device({location, dispatch, device}) {
   const {
@@ -17,13 +18,11 @@ function Device({location, dispatch, device}) {
     currentItem,
     modalVisible,
     dropdown,
-    modalType
+    modalType,
   } = device
- var modules=JSON.parse(localStorage.getItem("modules"))
-  // console.log(modules,"kyo nhi aa rha")
+var modules=JSON.parse(localStorage.getItem("modules"))
   async function getallasset() {
     var a= await apiFunc.getAsset();
-   
     device.dropdown=a.body.data;
   }
   getallasset()
@@ -106,7 +105,7 @@ function Device({location, dispatch, device}) {
   }
 
   const UserModalGen = () => <UserModal {...userModalProps}/>
-
+ console.log(device,"device")
 
   return (
     <div className='content-inner'>
